@@ -2,7 +2,7 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import { FaStar } from 'react-icons/fa'
 
-export default function SearchItem({ item, dates }) {
+export default function SearchItem({ item }) {
     const imagesRandom = [
         "https://chefjob.vn/wp-content/uploads/2020/04/homestay-duoc-nhieu-du-khach-lua-chon.jpg",
         "https://motogo.vn/wp-content/uploads/2023/05/homestay-kon-tum-40.jpg",
@@ -40,10 +40,12 @@ export default function SearchItem({ item, dates }) {
                 <div className="detail-rating">
                     <span>Excellent</span>
                     <p><FaStar /></p>
-                    <button>7.4</button>
+                    <button>9.0</button>
                 </div>
                 <div className="detail-text">
-                    <span className="detail-text__price">${item?.cost_per_day} night</span>
+                    <p>
+                        <b style={{ fontSize: '22px'}}>${item?.cost_per_day}</b> night
+                    </p>
                     <span className="detail-text__tax">Includes taxes and fees</span>
                     <Link to={`/homestays/${item._id}`}>
                         <button className="detail-text__btn">See availability</button>

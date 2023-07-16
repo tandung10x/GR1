@@ -4,7 +4,7 @@ import "react-date-range/dist/styles.css"; // main css file
 import "react-date-range/dist/theme/default.css";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import AdminHomePage from "./screens/admin/pages/AdminHomePage"; // theme css file
-import UserHomePage from "./screens/user/pages/UserHomePage";
+//import UserHomePage from "./screens/user/pages/UserHomePage";
 import UserSearch from "./screens/user/pages/UserSearch";
 import HotelDetail from "./screens/user/pages/HotelDetail";
 import Booking from "./screens/user/pages/Booking";
@@ -20,17 +20,26 @@ import ListCustomer from "./screens/admin/pages/ListCustomer";
 import ProtectedRoute from "./screens/admin/components/routing/ProtectedRoute";
 import EditRoom from "./screens/admin/components/update-info/EditRoom";
 import EditUser from "./screens/admin/components/update-info/EditUser";
+import { useState } from "react";
 
 function App() {
+  const [dates, setDates] = useState([
+    {
+        startDate: new Date(),
+        endDate: new Date(),
+        key: "selection"
+    }
+  ]);
+
   return (
     <div className='App'>
       <BrowserRouter>
         <Routes>
           {/* user */}
-          <Route path='/' element={<UserSearch />} />
-          <Route path='/homestays' element={<UserSearch />} />
-          <Route path='/homestays/:id' element={<HotelDetail />} />
-          <Route path='/booking' element={<Booking />} />
+          <Route path='/' element={<UserSearch dates={dates} setDates={setDates}/>} />
+          <Route path='/homestays' element={<UserSearch dates={dates} setDates={setDates} />} />
+          <Route path='/homestays/:id' element={<HotelDetail dates={dates} setDates={setDates}/>} />
+          <Route path='/booking' element={<Booking dates={dates} setDates={setDates}/>} />
 
           {/* admin */}
           <Route path='/admin-login' element={<AdminLogin />} />

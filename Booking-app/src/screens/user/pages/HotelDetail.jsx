@@ -3,18 +3,15 @@ import { useState } from 'react';
 import { useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom'
 import roomApi from '../../../api/roomApi';
+import { calDiffDates } from '../../../utils/calDiffDates';
 import Footer from '../components/footer/Footer'
 import Header from '../components/header/Header'
-import { DateSchema } from 'yup';
-import { useLocation } from 'react-router-dom'
 
-export default function HotelDetail() {
+export default function HotelDetail(props) {
     const { id } = useParams();
     const navigate = useNavigate();
     const [homestay, setHomestay] = useState(null);
-
-    const location = useLocation();
-    const [dates, setDates] = useState(location.state?.dates);
+    const numNight = calDiffDates(props.dates[0].startDate, props.dates[0].endDate);
 
     const photos = [
         "https://cf.bstatic.com/xdata/images/xphoto/square300/57584488.webp?k=bf724e4e9b9b75480bbe7fc675460a089ba6414fe4693b83ea3fdd8e938832a6&o=",
@@ -65,19 +62,17 @@ export default function HotelDetail() {
                         <h3>Stay in the heart of city</h3>
                         <p>Entire studio, 1 bathroom 21m<sup>2</sup> full bed</p>
                         <p className="desc-detail-hotel">
-                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Ullam pariatur beatae quo facilis reprehenderit, veniam doloremque quidem unde delectus nesciunt maxime iure id quasi iusto! Quis, laborum. Doloribus, pariatur enim.
-                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Ullam pariatur beatae quo facilis reprehenderit, veniam doloremque quidem unde delectus nesciunt maxime iure id quasi iusto! Quis, laborum. Doloribus, pariatur enim.
-                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Ullam pariatur beatae quo facilis reprehenderit, veniam doloremque quidem unde delectus nesciunt maxime iure id quasi iusto! Quis, laborum. Doloribus, pariatur enim.
+                            {homestay?.other_information}
                         </p>
                     </div>
                     <div className="hotel-detail__bottom-price">
-                        <h3>Perfect for a {dates[0].endDate} night stay!</h3>
+                        <h3>Property Highlights</h3>
                         <span>
-                            Located in the real heart of Krakow, this property has an
-                            excellent location score of 9.8!
+                            Highly rated by recent guests (9.0)
                         </span>
                         <p>
-                            <b style={{ fontSize: '22px'}}>${homestay?.cost_per_day}</b> ({1}{" "}nights)
+                            <b style={{ fontSize: '22px'}}>${homestay?.cost_per_day * numNight}</b> 
+                            {" "}({numNight}{" "}nights)
                         </p>
                         <button
                             className='book-now'

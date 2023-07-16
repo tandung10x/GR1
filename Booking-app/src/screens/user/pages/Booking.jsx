@@ -14,16 +14,18 @@ import { SelectField } from '../../../components/form-field/SelectField'
 import { useSelector } from 'react-redux'
 import { useEffect } from 'react'
 import roomApi from '../../../api/roomApi';
+import { calDiffDates } from '../../../utils/calDiffDates';
 
-export default function Booking() {
+export default function Booking(props) {
     const location = useLocation();
     const navigate = useNavigate();
     const [openConfirmModal, setOpenConfirmModal] = useState(false);
-    const date = new Date();
     //const { services } = useSelector(state => state.service);
     const [otp, setOtp] = useState('');
     const [statisticalId, setStatisticalId] = useState(null);
     const [isLoading, setIsLoading] = useState(false);
+
+    const numNight = calDiffDates(props.dates[0].startDate, props.dates[0].endDate);
 
     // const selectService = [...services].map(item => {
     //     return { id: item?._id, name: item?.name_service }
@@ -205,21 +207,21 @@ export default function Booking() {
                             <div className="booking-info__detail">
                                 <div className="checkin">
                                     <p className='bi-title'>Check-in</p>
-                                    <h6>{format(date, "MM/dd/yyyy")}</h6>
-                                    <p className='from-until'>From 14:00</p>
+                                    <h6>{format(props.dates[0].startDate, "MM/dd/yyyy")}</h6>
+                                    <p className='from-until'>From 13:00</p>
                                 </div>
                                 <div className="checkout">
                                     <p className='bi-title'>Check-out</p>
-                                    <h6>{format(date.setDate(date.getDate() + 1), "MM/dd/yyyy")}</h6>
+                                    <h6>{format(props.dates[0].endDate, "MM/dd/yyyy")}</h6>
                                     <p className='from-until'>Until 12:00</p>
                                 </div>
                             </div>
-                            <div className='stay-date'>Total length of stay: 1 night</div>
+                            <div className='stay-date'>Total length of stay: {numNight} night</div>
                             <hr style={{ margin: '15px 0'}}/>
                             <h4>Your select</h4>
                             <p className='your-select'>1 room</p>
                             <hr style={{ margin: '15px 0'}}/>
-                            <h4>Total: ${location.state?.price}</h4>
+                            <h4>Total: ${location.state?.price * numNight}</h4>
                         </div>
                     </div>
                 </div>

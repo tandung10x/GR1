@@ -2,7 +2,9 @@ const roomModel= require("../models/room.model")
 
 module.exports= {
   getAll: async (req, res, next)=>{
-    return res.status(200).json(await roomModel.find());
+    const {price1, price2} = req.params;
+    let rooms= await roomModel.find({cost_per_day: {$gte: Number(price1), $lte: Number(price2)}});
+    return res.status(200).json(rooms);
   },
   createRoom: async (req, res, next)=>{
     let {...body}= req.body;

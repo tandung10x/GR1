@@ -15,7 +15,16 @@ const WidgetItem = ({ type, total }) => {
 
     const diff = 20;
 
-    const totalRevenue = [...statisticals].map(item => item?.total).reduce((prev, curr) => prev + curr, 0);
+    const dayDiff = (firstDate, secondDate) => {
+        const startDay = new Date(firstDate);
+        const endDay = new Date(secondDate);
+        const milis = startDay.getTime() - endDay.getTime();
+        const day = milis / (1000 * 3600 * 24);
+
+        return Math.round(Math.abs(day));
+    }
+
+    const totalRevenue = [...statisticals].map(item => item?.total* +dayDiff(item?.timeCome, item?.timeLeave)).reduce((prev, curr) => prev + curr, 0);
     
     switch (type) {
         case "user":
@@ -55,9 +64,9 @@ const WidgetItem = ({ type, total }) => {
                 name: "View all homestays",
                 link: "/admin/homestays",
                 icon: (
-                    <MonetizationOnOutlinedIcon
+                    <AccountBalanceWalletOutlinedIcon
                         className="widget-icon"
-                        style={{ backgroundColor: "rgba(0, 128, 0, 0.2)", color: "green" }}
+                        style={{ backgroundColor: "rgba(128, 0, 128, 0.2)", color: "purple" }}
                     />
                 ),
                 amount: rooms?.length
@@ -69,11 +78,11 @@ const WidgetItem = ({ type, total }) => {
                 isMoney: true,
                 link: "See details",
                 icon: (
-                    <AccountBalanceWalletOutlinedIcon
+                    <MonetizationOnOutlinedIcon
                         className="widget-icon"
-                        style={{ backgroundColor: "rgba(128, 0, 128, 0.2)", color: "purple" }}
+                        style={{ backgroundColor: "rgba(0, 128, 0, 0.2)", color: "green" }}
                     />
-                ),
+                ),                
                 amount: user?.role === 'admin' ? `${totalRevenue}` : total
             };
             break;

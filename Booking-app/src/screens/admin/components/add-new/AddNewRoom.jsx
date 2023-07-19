@@ -18,6 +18,18 @@ export default function AddNewRoom() {
     const { managers } = useSelector(state => state.manager);
     const [listDestinations, setListDestinations] = useState([]);
     const [listManager, setListManager] = useState([]);
+    const [image, setImage] = useState('');
+
+    function convertToBase64(e) {
+		var reader = new FileReader();
+		reader.readAsDataURL(e.target.files[0]);
+		reader.onload = () => {
+			setImage(reader.result);
+		}
+		reader.onerror = error => {
+			console.log("Error: ", error);
+		};
+	}
 
     useEffect(() => {
         setListDestinations([...destinations]);
@@ -64,14 +76,10 @@ export default function AddNewRoom() {
     })
 
     const onsubmit = async (value) => {
-        const response = await roomApi.create(value);
-        if (response?.statusCode === 400) {
-            alert("This room already has a manager, please choose another room.");
-        } else {
-            alert('Add room successfully!');
-            dispatch(getAllRoom());
-            navigate('/admin/homestays');
-        }
+        await roomApi.create({...value, image});
+        alert('Add room successfully!');
+        dispatch(getAllRoom());
+        navigate('/admin/homestays');
     }
     
     return (
@@ -87,7 +95,7 @@ export default function AddNewRoom() {
                 </div>
             </div>
             <div className="form-item">
-                <p className="form-item__name">Manger room <span>*</span></p>
+                <p className="form-item__name">Manager room <span>*</span></p>
                 <div className='form-item__input'>
                     <SelectField
                         name='id_user'
@@ -108,6 +116,7 @@ export default function AddNewRoom() {
                             { id: 'resort', name: 'Resorts' },
                             { id: 'villa', name: 'Villas' },
                             { id: 'cabin', name: 'Cabins' },
+                            { id: 'bungalow', name: 'Bungalows' }
                         ]}
                     />
                 </div>
@@ -156,7 +165,17 @@ export default function AddNewRoom() {
                     />
                 </div>
             </div>
-            
+            <div className="form-item">
+                <p className="form-item__name">Photo <span>*</span></p>
+			    <div style={{padding: "0px 15px"}}>
+                    <input 
+                    accept="image/*"
+                    type="file"
+                    onChange={convertToBase64}
+                    />                    
+			    </div>
+		    </div>
+
             <div className="form-item">
                 <p className="form-item__name"></p>
                 <div className="form-item__input">

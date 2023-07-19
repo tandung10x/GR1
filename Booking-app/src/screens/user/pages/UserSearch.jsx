@@ -8,7 +8,7 @@ import SearchItem from '../components/search-item/SearchItem';
 import roomApi from '../../../api/roomApi';
 import { Box } from '@mui/system';
 import { getAllRoom } from '../../../redux/roomSlice'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 
 export default function UserSearch(props) {
     const [openDate, setOpenDate] = useState(false);
@@ -18,7 +18,6 @@ export default function UserSearch(props) {
     const [listSearchData, setListSearchData] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
     const dispatch = useDispatch();
-    const { room } = useSelector(state => state.room);
 
     useEffect(() => {
         dispatch(getAllRoom());
@@ -26,10 +25,10 @@ export default function UserSearch(props) {
 
     const handleSearch = useCallback(async () => {
         setIsLoading(true);
-        const response = await roomApi.getAll();
+        const response = await roomApi.getAll(min, max);
         setIsLoading(false);
         setListSearchData(response);
-    }, [room])
+    }, [min, max])
 
     useEffect(() => {
         handleSearch();

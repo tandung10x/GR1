@@ -4,8 +4,6 @@ export const ENDPOINT = {
         register: "managers",
         gettAll: "managers"
     },
-    destinations: "destinations",
     rooms: "rooms",
-    services: "services",
     statistical: "statisticals"
 }

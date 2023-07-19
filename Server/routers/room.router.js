@@ -10,8 +10,7 @@ const {
 }= require("../controllers/room.controller")
 
 router
-  .route("")
-  .get(asyncHandle(getAll))
+  .route("")  
   .post(asyncHandle(createRoom))
 
 router
@@ -19,4 +18,8 @@ router
   .get(asyncHandle(getRoomById))
   .patch(asyncHandle(updateRoom))
   .delete(asyncHandle(deleteRoom))  
+
+router
+  .route("/:price1/:price2")
+  .get(asyncHandle(getAll))
 module.exports= router;

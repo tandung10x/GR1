@@ -1,9 +1,8 @@
-const mongoosse = require('mongoose');
+const mongoosse= require('mongoose');
 
 const roomSchema= mongoosse.Schema({
-  name_room: {
-    type: String, 
-    unique: true,
+  type_of_room: {
+    type: String,
     required: true
   },
   max_people: {
@@ -13,10 +12,13 @@ const roomSchema= mongoosse.Schema({
   cost_per_day: {
     type: Number
   },
+  location: {
+    type: String
+  },
   other_information: {
     type: String
   },
-  location: {
+  image: {
     type: String
   },
   isFree: {

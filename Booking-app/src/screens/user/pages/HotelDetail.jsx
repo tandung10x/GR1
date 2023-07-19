@@ -14,11 +14,11 @@ export default function HotelDetail(props) {
     const numNight = calDiffDates(props.dates[0].startDate, props.dates[0].endDate);
 
     const photos = [
-        "https://cf.bstatic.com/xdata/images/xphoto/square300/57584488.webp?k=bf724e4e9b9b75480bbe7fc675460a089ba6414fe4693b83ea3fdd8e938832a6&o=",
-        "https://cf.bstatic.com/static/img/theme-index/carousel_320x240/card-image-villas_300/dd0d7f8202676306a661aa4f0cf1ffab31286211.jpg",
-        "https://cf.bstatic.com/xdata/images/xphoto/square300/57584488.webp?k=bf724e4e9b9b75480bbe7fc675460a089ba6414fe4693b83ea3fdd8e938832a6&o=",
-        "https://cf.bstatic.com/xdata/images/xphoto/square300/57584488.webp?k=bf724e4e9b9b75480bbe7fc675460a089ba6414fe4693b83ea3fdd8e938832a6&o=",
-        "https://cf.bstatic.com/static/img/theme-index/carousel_320x240/card-image-villas_300/dd0d7f8202676306a661aa4f0cf1ffab31286211.jpg",
+        "https://luxurynhatle.muongthanh.com/images/hotels/rooms/original/1-giuong_1678439248.jpg",
+        "https://luxurynhatle.muongthanh.com/images/rooms/2023/03/10/original/z4171313190619_90c1f42c0f552fb6a3ab7eabf46898a5_1678439245.jpg",
+        "https://luxurynhatle.muongthanh.com/images/rooms/2023/03/10/original/z4171312347166_18bdb79a501fa6ae7bd7b009df19849b_1678439161.jpg",
+        "https://luxurynhatle.muongthanh.com/images/rooms/2023/03/10/original/z4171312177603_072e5bad4bace80032ebb31565dca3ff_1678439190.jpg",
+        "https://luxurynhatle.muongthanh.com/images/rooms/2023/03/10/original/z4171312905406_00735fbb992d38e170e3f61c2d78a1ae_1678439234.jpg",
     ]
 
     useEffect(() => {
@@ -45,7 +45,7 @@ export default function HotelDetail(props) {
                             Excellent location - 300m from center
                         </p>
                         <p className="hotel-price">
-                            Book a stay over ${homestay?.cost_per_day} at this property and get a
+                            Book a stay over ${homestay?.cost_per_day * numNight} at this property and get a
                             free airport taxi
                         </p>
                     </div>                    
@@ -60,7 +60,6 @@ export default function HotelDetail(props) {
                 <div className="hotel-detail__bottom">
                     <div className="hotel-detail__bottom-text">
                         <h3>Stay in the heart of city</h3>
-                        <p>Entire studio, 1 bathroom 21m<sup>2</sup> full bed</p>
                         <p className="desc-detail-hotel">
                             {homestay?.other_information}
                         </p>

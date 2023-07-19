@@ -71,14 +71,10 @@ function EditRoom() {
     }, [room, setValue])
 
     const handleUpdate = async (value) => {
-        const response = await roomApi.update(room?._id, value);
-        if (response?.statusCode === 400) {
-            alert("Update room failed because this manager already manages another room.")
-        } else {
-            alert("Update room successfully!");
-            dispatch(getAllRoom());
-            navigate('/admin/homestays');
-        }
+        await roomApi.update(room?._id, value);
+        alert("Update room successfully!");
+        dispatch(getAllRoom());
+        navigate('/admin/homestays');
     };
 
     return (
@@ -135,6 +131,7 @@ function EditRoom() {
                                                     { id: 'resort', name: 'Resorts' },
                                                     { id: 'villa', name: 'Villas' },
                                                     { id: 'cabin', name: 'Cabins' },
+                                                    { id: 'bungalow', name: 'Bungalows' }
                                                 ]}
                                             />
                                         </div>

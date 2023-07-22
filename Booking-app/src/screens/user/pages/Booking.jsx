@@ -10,8 +10,6 @@ import CustomModal from '../../../components/custom-modal/CustomModal'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { format } from 'date-fns'
 import statisticalApi from '../../../api/statisticalApi'
-import { SelectField } from '../../../components/form-field/SelectField'
-import { useSelector } from 'react-redux'
 import { useEffect } from 'react'
 import roomApi from '../../../api/roomApi';
 import { calDiffDates } from '../../../utils/calDiffDates';
@@ -31,8 +29,6 @@ export default function Booking(props) {
     //     return { id: item?._id, name: item?.name_service }
     // })
 
-    const selectService = ["a", "b", "c"]
-
     const initialValues = {
         fullname: '',
         age: '',
@@ -40,8 +36,7 @@ export default function Booking(props) {
         phone: '',
         email: '',
         address: '',
-        id_room: '',
-        id_service: ''
+        id_room: ''
     }
 
     const validationSchema = Yup.object().shape({
@@ -182,12 +177,6 @@ export default function Booking(props) {
                                     name='id_room'
                                     control={control}
                                     disabled={true}
-                                />
-                                <SelectField
-                                    label='Service'
-                                    name='id_service'
-                                    control={control}
-                                    options={selectService}
                                 />
                                 <Button
                                     variant='contained'

@@ -3,7 +3,6 @@ import Chart from '../components/charts/Chart'
 import Navbar from '../components/navbar/Navbar'
 import Sidebar from '../components/sidebar/Sidebar'
 import TotalRevenue from '../components/total-revenue/TotalRevenue'
-import TransactionTable from '../components/transaction-table/TransactionTable'
 import WidgetItem from '../components/widget/WidgetItem'
 import { useDispatch, useSelector } from 'react-redux'
 import { getAllRoom } from '../../../redux/roomSlice'
@@ -26,7 +25,6 @@ function AdminHomePage() {
   useEffect(() => {
     const getStatisticalByUser = async () => {
       const response = await roomApi.getRoomByUser(user?._id);
-
       if (response === undefined || response === null) {
         setStatisticalsByUser([]);
         return;
@@ -56,11 +54,7 @@ function AdminHomePage() {
         <div className="charts">
           <TotalRevenue total={totalRevenueByUser} />
           <Chart title="Last 6 Months (Revenue)" aspect={2 / 1} />
-        </div>
-        <div className="transaction">
-          <div className="transaction-title">Latest Transactions</div>
-          <TransactionTable />
-        </div>
+        </div>        
       </div>
     </div>
   )

@@ -9,10 +9,6 @@ const statisticalSchema= mongoose.Schema({
     type: mongoose.SchemaTypes.ObjectId,
     ref: "room"
   },
-  id_service: {
-    type: mongoose.SchemaTypes.ObjectId,
-    ref: "service"
-  },
   id_customer: {
     type: mongoose.SchemaTypes.ObjectId,
     ref: "customer"

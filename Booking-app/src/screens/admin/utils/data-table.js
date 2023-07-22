@@ -68,11 +68,6 @@ export const homestayColumns = [
     width: 70
   },
   {
-    field: "destination",
-    headerName: "Destination",
-    width: 150,
-  },
-  {
     field: "roomId",
     headerName: "Room ID",
     width: 100,

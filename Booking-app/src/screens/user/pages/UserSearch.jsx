@@ -25,7 +25,7 @@ export default function UserSearch(props) {
 
     const handleSearch = useCallback(async () => {
         setIsLoading(true);
-        const response = await roomApi.getAll(min, max);
+        const response = await roomApi.getRoomByPrice(min, max);
         setIsLoading(false);
         setListSearchData(response);
     }, [min, max])

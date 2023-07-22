@@ -6,12 +6,19 @@ const {
   createRoom,
   updateRoom,
   deleteRoom,
-  getRoomById
+  getRoomById,
+  getRoomByUser,
+  getRoomByPrice
 }= require("../controllers/room.controller")
 
 router
-  .route("")  
+  .route("")
+  .get(asyncHandle(getAll))
   .post(asyncHandle(createRoom))
+
+router
+  .route("/user/:id")
+  .get(asyncHandle(getRoomByUser))
 
 router
   .route("/:id")
@@ -21,5 +28,7 @@ router
 
 router
   .route("/:price1/:price2")
-  .get(asyncHandle(getAll))
+  .get(asyncHandle(getRoomByPrice))
+
+
 module.exports= router;

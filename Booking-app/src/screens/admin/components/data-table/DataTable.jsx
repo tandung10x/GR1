@@ -49,31 +49,6 @@ const DataTable = ({ columns, title, name }) => {
     },
   ];
 
-  // const userRows = [
-  //   { id: 1, user: 'Snow', email: 'min@gmail.com', age: 35, phone: '0245124155', status: 'active' },
-  //   { id: 2, user: 'Snow', email: 'min@gmail.com', age: 35, phone: '0245124155', status: 'pending' },
-  //   { id: 3, user: 'Snow', email: 'min@gmail.com', age: 35, phone: '0245124155', status: 'active' },
-  //   { id: 4, user: 'Snow', email: 'min@gmail.com', age: 35, phone: '0245124155', status: 'active' },
-  //   { id: 5, user: 'Snow', email: 'min@gmail.com', age: 35, phone: '0245124155', status: 'passive' },
-  // ];
-
-  // const homestayRows = [
-  //   {id: 1, destination: "HaNoi", roomId: 111, type: "Hotels", maxPeople: 5, price: 30, otherInfo: "Swimming pool"},
-  //   {id: 2, destination: "TP.HCM", roomId: 245, type: "Villas", maxPeople: 10, price: 100, otherInfo: "Swimming pool"},
-  //   {id: 3, destination: "HaNoi", roomId: 105, type: "Apartment", maxPeople: 3, price: 80, otherInfo: "Swimming pool"},
-  //   {id: 4, destination: "DaNang", roomId: 142, type: "Hotels", maxPeople: 5, price: 30, otherInfo: "Swimming pool"},
-  //   {id: 5, destination: "HaNoi", roomId: 210, type: "Hotels", maxPeople: 5, price: 30, otherInfo: "Swimming pool"},
-  //   {id: 6, destination: "HaNoi", roomId: 121, type: "Hotels", maxPeople: 5, price: 30, otherInfo: "Swimming pool"},
-  // ]
-
-  // const serviceRows = [
-  //   {id: 1, name: "Meal", cost: 5, detail: "hot dogs, crab,..."},
-  //   {id: 2, name: "Taxi airpot", cost: 7, detail: "hot dogs, crab,..."},
-  //   {id: 3, name: "Rent motobike", cost: 9, detail: "hot dogs, crab,..."},
-  //   {id: 4, name: "Barbecue", cost: 12, detail: "hot dogs, crab,..."},
-  //   {id: 5, name: "Barbecue", cost: 11, detail: "hot dogs, crab,..."},
-  // ]
-
   return (
     <div className="data-table">
       <div className="data-table__title">

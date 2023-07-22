@@ -21,6 +21,10 @@ const roomSchema= mongoosse.Schema({
   image: {
     type: String
   },
+  id_user: {
+    type: mongoosse.SchemaTypes.ObjectId,
+    ref: "manager"
+  },
   isFree: {
     type: Number,
     default: 1

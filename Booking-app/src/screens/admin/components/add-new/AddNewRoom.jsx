@@ -14,9 +14,7 @@ import { getAllRoom } from '../../../../redux/roomSlice'
 export default function AddNewRoom() {
     const navigate = useNavigate();
     const dispatch = useDispatch();
-    const { destinations } = useSelector(state => state.destination);
     const { managers } = useSelector(state => state.manager);
-    const [listDestinations, setListDestinations] = useState([]);
     const [listManager, setListManager] = useState([]);
     const [image, setImage] = useState('');
 
@@ -32,13 +30,8 @@ export default function AddNewRoom() {
 	}
 
     useEffect(() => {
-        setListDestinations([...destinations]);
         setListManager([...managers]);
-    }, [destinations, managers])
-
-    const selectDestination = listDestinations.map(item => {
-        return { id: item?._id, name: item?.name_location }
-    })
+    }, [managers])
 
     const selectManager = listManager.map(item => {
         return { id: item?._id, name: item?.username }
@@ -54,8 +47,6 @@ export default function AddNewRoom() {
     }
     
     const validationSchema = Yup.object().shape({
-        id_location: Yup.string()
-            .required("Destination is required."),
         id_user: Yup.string()
             .required("Manager room is required."),
         type_of_room: Yup.string()
@@ -83,17 +74,7 @@ export default function AddNewRoom() {
     }
     
     return (
-        <div className='form-data'>
-            <div className="form-item">
-                <p className="form-item__name">Destination <span>*</span></p>
-                <div className='form-item__input'>
-                    <SelectField
-                        name='id_location'
-                        control={control}
-                        options={selectDestination}
-                    />
-                </div>
-            </div>
+        <div className='form-data'>            
             <div className="form-item">
                 <p className="form-item__name">Manager room <span>*</span></p>
                 <div className='form-item__input'>

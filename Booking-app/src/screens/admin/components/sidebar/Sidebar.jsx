@@ -1,7 +1,6 @@
 import React from 'react'
 import DashboardIcon from "@mui/icons-material/Dashboard";
 import PersonOutlineIcon from "@mui/icons-material/PersonOutline";
-import RoomServiceIcon from "@mui/icons-material/RoomService";
 import StoreIcon from "@mui/icons-material/Store";
 import InsertChartIcon from "@mui/icons-material/InsertChart";
 import SettingsApplicationsIcon from "@mui/icons-material/SettingsApplications";
@@ -30,7 +29,7 @@ export default function Sidebar() {
         <div className="sidebar">
             <div className="sidebar-top">
                 <Link to="/admin" style={{ textDecoration: "none" }}>
-                    <span className="sidebar-top__logo">Jade Hill HomeStays</span>
+                    <span className="sidebar-top__logo">Homestays System</span>
                 </Link>
             </div>
             <hr />
@@ -61,13 +60,7 @@ export default function Sidebar() {
                             <StoreIcon className="icon" />
                             <span>Homestays</span>
                         </li>
-                    </Link>
-                    <Link to="/admin/services" style={{ textDecoration: "none" }}>
-                        <li>
-                            <RoomServiceIcon className="icon" />
-                            <span>Services</span>
-                        </li>
-                    </Link>
+                    </Link>                    
                     {
                         user?.role === 'admin' && <>
                             <Link to="/admin/statistical" style={{ textDecoration: "none" }}>

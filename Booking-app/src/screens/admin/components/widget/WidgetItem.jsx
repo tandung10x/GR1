@@ -10,7 +10,7 @@ const WidgetItem = ({ type, total }) => {
     let data;
     const { statisticals } = useSelector(state => state.statistical);
     const { managers } = useSelector(state => state.manager);
-    const { rooms } = useSelector(state => state.room);
+    const { room } = useSelector(state => state.room);
     const user = useSelector(state => state.auth.user);
 
     const diff = 20;
@@ -69,7 +69,7 @@ const WidgetItem = ({ type, total }) => {
                         style={{ backgroundColor: "rgba(128, 0, 128, 0.2)", color: "purple" }}
                     />
                 ),
-                amount: rooms?.length
+                amount: room?.length
             };
             break;
         case "total":

@@ -13,7 +13,7 @@ import { userColumns } from "./screens/admin/utils/data-table";
 import AddUserPage from "./screens/admin/pages/AddUserPage";
 import AddHomeStayPage from "./screens/admin/pages/AddHomeStayPage";
 import NotFound from "./components/404/NotFound";
-import UserDetailPage from "./screens/admin/pages/UserDetailPage";
+
 import AdminLogin from "./screens/admin/pages/AdminLogin";
 import ListHomestayPage from "./screens/admin/pages/ListHomestayPage";
 import ListCustomer from "./screens/admin/pages/ListCustomer";
@@ -37,7 +37,6 @@ function App() {
         <Routes>
           {/* user */}
           <Route path='/' element={<UserSearch dates={dates} setDates={setDates}/>} />
-          <Route path='/homestays' element={<UserSearch dates={dates} setDates={setDates} />} />
           <Route path='/homestays/:id' element={<HotelDetail dates={dates} setDates={setDates}/>} />
           <Route path='/booking' element={<Booking dates={dates} setDates={setDates}/>} />
 
@@ -69,14 +68,6 @@ function App() {
             element={
               <ProtectedRoute>
                 <AddUserPage />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path='/admin/users/:id'
-            element={
-              <ProtectedRoute roles={["staff"]}>
-                <UserDetailPage />
               </ProtectedRoute>
             }
           />

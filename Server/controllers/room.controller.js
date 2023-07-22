@@ -2,6 +2,10 @@ const roomModel= require("../models/room.model")
 
 module.exports= {
   getAll: async (req, res, next)=>{
+    let room= await roomModel.find().populate("id_user");
+    return res.status(200).json(room)
+  },
+  getRoomByPrice: async (req, res, next)=>{
     const {price1, price2} = req.params;
     let rooms= await roomModel.find({cost_per_day: {$gte: Number(price1), $lte: Number(price2)}});
     return res.status(200).json(rooms);
@@ -25,5 +29,10 @@ module.exports= {
   getRoomById: async (req, res, next)=>{
     let id= req.params.id;
     return res.status(200).json(await roomModel.findById(id));
+  },
+  getRoomByUser: async (req, res, next)=>{
+    let idUser= req.params.id;
+    let room= await roomModel.find({id_user: idUser}).populate("id_user");
+    return res.status(200).json(room);
   }
 }

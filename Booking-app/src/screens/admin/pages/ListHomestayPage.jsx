@@ -13,16 +13,16 @@ import { getAllRoom } from '../../../redux/roomSlice';
 export default function ListHomestayPage() {
     const dispatch = useDispatch();
     const user = useSelector(state => state.auth.user);
-    const { rooms } = useSelector(state => state.room);
+    const { room } = useSelector(state => state.room);
     const [listRoom, setListRoom] = useState([]);
     const [openConfirmDelete, setOpenConfirmDelete] = useState(false);
     const [item, setItem] = useState(null);
-    const [staffRoom, setStaffRoom] = useState(null);
+    const [staffRoom, setStaffRoom] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
 
     useEffect(() => {
-        setListRoom([...rooms]);
-    }, [rooms])
+        setListRoom([...room]);
+    }, [room])
 
     useEffect(() => {
         const getRoomByUser = async () => {
@@ -141,28 +141,29 @@ export default function ListHomestayPage() {
                                         )
                                     })}
                                     {isLoading ? <CircularProgress size={30} color='primary' style={{ margin: '10px auto' }} /> :
-                                        (user?.role === 'staff' && <>
-                                        <TableRow>
-                                            <TableCell align='left'>{staffRoom?._id}</TableCell>
-                                            <TableCell align='left'>
-                                                {staffRoom?.id_location?.name_location}
-                                            </TableCell>
-                                            <TableCell align='left'>{staffRoom?.type_of_room}</TableCell>
-                                            <TableCell align='left'>{staffRoom?.max_people}</TableCell>
-                                            <TableCell align='left'>{staffRoom?.cost_per_day && '$' + staffRoom?.cost_per_day }</TableCell>
-                                            <TableCell align='left'>{staffRoom?.id_user?.username ? staffRoom?.id_user?.username : "Not yet"}</TableCell>
-                                            <TableCell align='left'>
-                                                {staffRoom?.other_information}
-                                            </TableCell>
-                                            <TableCell align='right'>
-                                                {staffRoom?._id ? <div className="cellAction">
-                                                    <Link to={`/admin/homestays/${staffRoom?._id}`} style={{ textDecoration: "none" }}>
-                                                        <div className="viewButton">Update</div>
-                                                    </Link>
-                                                </div> : ''}
-                                            </TableCell>
-                                        </TableRow>
-                                    </>)}
+                                        (user?.role === 'staff' && staffRoom.map((item, index) => { 
+                                            return (
+                                                <TableRow key={index}>
+                                                    <TableCell align='left'>{item?._id}</TableCell>
+                                                    <TableCell align='left'>
+                                                        {item?.id_location?.name_location}
+                                                    </TableCell>
+                                                    <TableCell align='left'>{item?.type_of_room}</TableCell>
+                                                    <TableCell align='left'>{item?.max_people}</TableCell>
+                                                    <TableCell align='left'>{item?.cost_per_day && '$' + item?.cost_per_day }</TableCell>
+                                                    <TableCell align='left'>{item?.id_user?.username ? item?.id_user?.username : "Not yet"}</TableCell>
+                                                    <TableCell align='left'>
+                                                        {item?.other_information}
+                                                    </TableCell>
+                                                    <TableCell align='right'>
+                                                        {item?._id ? <div className="cellAction">
+                                                            <Link to={`/admin/homestays/${item?._id}`} style={{ textDecoration: "none" }}>
+                                                                <div className="viewButton">Update</div>
+                                                            </Link>
+                                                        </div> : ''}
+                                                    </TableCell>
+                                                </TableRow>
+                                            )}))}
                                 </TableBody>
                             </Table>
                         </TableContainer>

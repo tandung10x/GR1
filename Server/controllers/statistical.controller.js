@@ -7,10 +7,7 @@ const ErrorResponse= require("../helpers/ErrorResponse");
 module.exports= {
   getAll: async (req, res, next)=>{
     let statisticals= await statisticalModel.find({confirm: "1"}).populate("id_customer").populate({
-      path: "id_room",
-      populate: {
-        path: "id_location"
-      }
+      path: "id_room"
     });
     return res.status(200).json(statisticals);
   },
@@ -57,9 +54,6 @@ module.exports= {
     if (body.id_room){
       stttc.id_room= body.id_room
     }
-    if (body.id_service){
-      stttc.id_service= body.id_service
-    }
     let otp= Math.floor(Math.random()*10)+""+ Math.floor(Math.random()*10)+ ""+ Math.floor(Math.random()*10)+""+Math.floor(Math.random()*10) ;
 
     stttc.confirm= otp;
@@ -71,7 +65,7 @@ module.exports= {
     let option= {
       email: customer.email,
       subject: "THÔNG BÁO ĐẶT DỊCH VỤ THÀNH CÔNG",
-      html: `<h1>Xin chân trọng thông báo, quý khách đã đặt dịch vụ homestay thành công vào thời gian ${dateTime}, Vui lòng chuẩn bị số tiền: ${body.total} $. Để xác thực thông tin. Hãy nhập mã xác nhận sau ${otp}</h1>`
+      html: `<h1>Xin chân trọng thông báo, quý khách đã đặt dịch vụ Homestay thành công vào thời gian ${dateTime}. Để xác thực thông tin. Hãy nhập mã xác nhận sau ${otp}</h1>`
     }
     await sendMail(option);
 
@@ -91,7 +85,7 @@ module.exports= {
 
     let stt= await statisticalModel.findOne({_id: idStatistical, confirm: otp})
     if (!stt){
-      throw new ErrorResponse(404, "OTP or id statistical incorrect");
+      throw new ErrorResponse(404, "OTP incorrect");
     }
 
     let body={

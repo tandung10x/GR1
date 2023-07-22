@@ -14,7 +14,8 @@ import statisticalApi from '../../../api/statisticalApi'
 function AdminHomePage() {
   const dispatch = useDispatch();
   const user = useSelector(state => state.auth.user);
-  const [statisticalsByUser, setStatisticalsByUser] = useState([]);
+  const [roomNumStaff, setRoomNumStaff] = useState(0);
+  const [orderNumStaff, setOrderNumStaff] = useState(0);
 
   useEffect(() => {
     dispatch(getAllRoom());
@@ -22,23 +23,23 @@ function AdminHomePage() {
     dispatch(getAllStatistical());
   }, [dispatch])
 
-  useEffect(() => {
-    const getStatisticalByUser = async () => {
-      const response = await roomApi.getRoomByUser(user?._id);
-      if (response === undefined || response === null) {
-        setStatisticalsByUser([]);
-        return;
-      } else {
-        const response1 = await statisticalApi.getStatisticalByRoom(response?._id);
-        if (response1?.length !== 0) {
-          setStatisticalsByUser(response1);
-        }
-      }
+  const getRoomStaff = async() => {
+    const response = await roomApi.getRoomByUser(user?._id);
+    setRoomNumStaff(response.length);
+  }
+  getRoomStaff();
+
+  const getOrderStaff = async() => {
+    const response = await roomApi.getRoomByUser(user?._id);
+    let response1 = 0;
+    for (let i = 0; i < response.length; i++)
+    {
+      const res = await statisticalApi.getStatisticalByRoom(response[i]._id);
+      response1 += res.length;
     }
-    getStatisticalByUser();
-  }, [user])
-  
-  const totalRevenueByUser = statisticalsByUser.length > 0 ? [...statisticalsByUser].map(item => item?.total).reduce((prev, curr) => prev + curr, 0) : 0;
+    setOrderNumStaff(response1);
+  }
+  getOrderStaff();
 
   return (
     <div className='admin'>
@@ -46,14 +47,14 @@ function AdminHomePage() {
       <div className="admin-container">
         <Navbar />
         <div className="list-widget">
-          <WidgetItem type='user' />
-          <WidgetItem type='order' />
-          <WidgetItem type='homestay' />
-          <WidgetItem type='total' total={totalRevenueByUser}/>
+          {user?.role === 'admin' && <WidgetItem type='user' />}
+          <WidgetItem type='order' orderNum={orderNumStaff}/>
+          <WidgetItem type='homestay' roomNum={roomNumStaff}/>
+          {user?.role === 'admin' && <WidgetItem type='total'/>}
         </div>
         <div className="charts">
-          <TotalRevenue total={totalRevenueByUser} />
-          <Chart title="Last 6 Months (Revenue)" aspect={2 / 1} />
+          {user?.role === 'admin' && <TotalRevenue/>}
+          {user?.role === 'admin' && <Chart title="Last 6 Months (Revenue)" aspect={2 / 1} />}
         </div>        
       </div>
     </div>

@@ -5,8 +5,7 @@ import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import KeyboardArrowUpOutlinedIcon from "@mui/icons-material/KeyboardArrowUpOutlined";
 import { useSelector } from 'react-redux'
 
-const TotalRevenue = ({ total }) => {
-    const user = useSelector(state => state.auth.user);
+const TotalRevenue = () => {
     const { statisticals } = useSelector(state => state.statistical);
 
     const dayDiff = (firstDate, secondDate) => {
@@ -28,11 +27,11 @@ const TotalRevenue = ({ total }) => {
             </div>
             <div className="total-revenue__bottom">
                 <div className="cir-progressbar">
-                    <CircularProgressbar value={total === 0 ? 0 : 70} text={total === 0 ? "0%" : "70%"} strokeWidth={5} />
+                    <CircularProgressbar value={70} text={"70%"} strokeWidth={5} />
                 </div>
                 <p className="title">Total sales made today</p>
                 <p className="amount">$
-                    {user?.role === 'admin' ? `${totalRevenue}` : total}
+                    ${totalRevenue}
                 </p>
                 <p className="desc">
                     Previous transactions processing. Last payments may not be included.

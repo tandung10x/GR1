@@ -76,7 +76,7 @@ export default function AddNewRoom() {
     return (
         <div className='form-data'>            
             <div className="form-item">
-                <p className="form-item__name">Manager room <span>*</span></p>
+                <p className="form-item__name">Homestay's manager <span>*</span></p>
                 <div className='form-item__input'>
                     <SelectField
                         name='id_user'
@@ -86,19 +86,28 @@ export default function AddNewRoom() {
                 </div>
             </div>
             <div className="form-item">
-                <p className="form-item__name">Type of room <span>*</span></p>
+                <p className="form-item__name">Type of homestay <span>*</span></p>
                 <div className='form-item__input'>
                     <SelectField
                         name='type_of_room'
                         control={control}
                         options={[
-                            { id: 'hotel', name: 'Hotels' },
-                            { id: 'apartment', name: 'Apartments' },
-                            { id: 'resort', name: 'Resorts' },
-                            { id: 'villa', name: 'Villas' },
-                            { id: 'cabin', name: 'Cabins' },
-                            { id: 'bungalow', name: 'Bungalows' }
+                            { id: 'Hotel', name: 'Hotel' },
+                            { id: 'Apartment', name: 'Apartment' },
+                            { id: 'Resort', name: 'Resort' },
+                            { id: 'Villa', name: 'Villa' },
+                            { id: 'Cabin', name: 'Cabin' },
+                            { id: 'Bungalow', name: 'Bungalow' }
                         ]}
+                    />
+                </div>
+            </div>
+            <div className="form-item">
+                <p className="form-item__name">Location <span>*</span></p>
+                <div className='form-item__input'>
+                    <InputField
+                        name='location'
+                        control={control}
                     />
                 </div>
             </div>
@@ -138,7 +147,7 @@ export default function AddNewRoom() {
                 </div>
             </div>
             <div className="form-item">
-                <p className="form-item__name">Other information</p>
+                <p className="form-item__name">Detail information</p>
                 <div className='form-item__input'>
                     <InputField
                         name='other_information'

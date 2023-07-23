@@ -1,46 +1,13 @@
 import { ArrowBack } from '@mui/icons-material'
-import { Box, Tab, Tabs, Typography } from '@mui/material'
+import { Box } from '@mui/material'
 import React from 'react'
-import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import AddNewRoom from '../components/add-new/AddNewRoom'
 import Navbar from '../components/navbar/Navbar'
 import Sidebar from '../components/sidebar/Sidebar'
 
-function TabPanel(props) {
-    const { children, value, index, ...other } = props;
-
-    return (
-        <div
-            role="tabpanel"
-            hidden={value !== index}
-            id={`simple-tabpanel-${index}`}
-            aria-labelledby={`simple-tab-${index}`}
-            {...other}
-        >
-            {value === index && (
-                <Box sx={{ p: 3 }}>
-                    <Typography>{children}</Typography>
-                </Box>
-            )}
-        </div>
-    );
-}
-
-function a11yProps(index) {
-    return {
-        id: `simple-tab-${index}`,
-        'aria-controls': `simple-tabpanel-${index}`,
-    };
-}
-
 function AddHomeStayPage() {
     const navigate = useNavigate();
-    const [tabValue, setTabValue] = useState(0);
-
-    const handleChange = (event, newValue) => {
-      setTabValue(newValue);
-    };
 
     return (
         <div className='add-new'>
@@ -65,17 +32,7 @@ function AddHomeStayPage() {
                     >
                         <ArrowBack />
                     </Box>
-                    <Box>
-                        <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-                            <Tabs value={tabValue} onChange={handleChange} aria-label="basic tabs example">
-                                <Tab label="Add new room" {...a11yProps(0)} />
-                                <Tab label="Add new location" {...a11yProps(1)} />
-                            </Tabs>
-                        </Box>
-                        <TabPanel value={tabValue} index={0}>
-                            <AddNewRoom />
-                        </TabPanel>
-                    </Box>
+                    <AddNewRoom />                    
                 </div>
             </div>
         </div>

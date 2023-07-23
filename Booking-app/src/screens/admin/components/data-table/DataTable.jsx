@@ -29,7 +29,7 @@ const DataTable = ({ columns, title, name }) => {
   const actionColumn = [
     {
       field: "action",
-      headerName: "Action",
+      headerName: "",
       width: 150,
       renderCell: (params) => {
         return (

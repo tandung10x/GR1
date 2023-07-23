@@ -23,10 +23,22 @@
                 }
             }
 
-            .hotel-distance {
-                color: #85f3ed;
+            .hotel-review {
                 font-size: 14px;
+                font-weight: 500;
                 margin-top: 5px;
+            }
+
+            .hotel-location {
+                padding-left: 100px;
+                font-weight: 500;
+                text-decoration: underline;
+            }
+
+            .hotel-save {
+                padding-left: 610px;
+                font-weight: 400;
+                text-decoration: underline;
             }
 
             .hotel-price {
@@ -90,6 +102,10 @@
                 display: inline-block;
                 margin: 10px 0;
                 font-size: 14px;
+            }
+
+            .hotel-highlight {
+                margin: 0 0 5px 10px;
             }
         }
     }

@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import Footer from '../components/footer/Footer'
 import Header from '../components/header/Header'
-import { Box, Button, CircularProgress, FormControl, FormControlLabel, FormHelperText, FormLabel, Radio, RadioGroup, TextField, Typography } from '@mui/material'
+import { Box, Button, CircularProgress, TextField, Typography } from '@mui/material'
 import InputField from '../../../components/form-field/InputField'
 import * as Yup from 'yup'
 import { useForm, Controller } from 'react-hook-form'
@@ -22,6 +22,7 @@ export default function Booking(props) {
     const [otp, setOtp] = useState('');
     const [statisticalId, setStatisticalId] = useState(null);
     const [isLoading, setIsLoading] = useState(false);
+    const dateNow = new Date();
 
     const numNight = calDiffDates(props.dates[0].startDate, props.dates[0].endDate);
 
@@ -32,7 +33,6 @@ export default function Booking(props) {
     const initialValues = {
         fullname: '',
         age: '',
-        gender: '',
         phone: '',
         email: '',
         address: '',
@@ -47,8 +47,6 @@ export default function Booking(props) {
             .required("Age is required.")
             .min(18, "Age min is 18.")
             .max(100, "Age max is 100."),
-        gender: Yup.string()
-            .required("Gender is required."),
         phone: Yup.string()
             .required("Phone number is required.")
             .matches(/^\+?([0-9]{2})\)?[-. ]?([0-9]{4})[-. ]?([0-9]{4})$/, "Invalid phone number."),
@@ -111,9 +109,22 @@ export default function Booking(props) {
             <div className='container' style={{ padding: '30px 0'}}>
                 <div className='row booking-row'>
                     <div className='col-8 col-sm-12'>
-                        <div className='booking-info'>
+                        <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
+                            <h2>Confirm and pay</h2>
+                        </Box>
+                        <h3 style={{margin: '30px 20px 10px 20px'}}>Cancellation policy</h3>
+                        <p style={{margin: '10px 20px'}}>Free cancellation before {format(dateNow.setDate(dateNow.getDate() + 2), "MMM dd yyyy")}. 
+                            Cancel before {format(dateNow.setDate(dateNow.getDate() + 3), "MMM dd yyyy")} for a partial refund.</p>
+                        
+                        <div className='booking-info'>                            
                             <h3>Enter your details</h3>
                             <Box>
+                                <InputField
+                                    label='Type of room'
+                                    name='id_room'
+                                    control={control}
+                                    disabled={true}
+                                />
                                 <InputField
                                     name='fullname'
                                     label='Fullname'
@@ -138,25 +149,6 @@ export default function Booking(props) {
                                         />
                                     )}
                                 />
-                                <Controller
-                                    name="gender"
-                                    control={control}
-                                    render={({ field, fieldState }) => (
-                                        <FormControl>
-                                            <FormLabel id="demo-row-radio-buttons-group-label">Gender</FormLabel>
-                                            <RadioGroup
-                                                row
-                                                aria-labelledby="demo-row-radio-buttons-group-label"
-                                                name="row-radio-buttons-group"
-                                                {...field}
-                                            >
-                                                <FormControlLabel value="female" control={<Radio />} label="Female" />
-                                                <FormControlLabel value="male" control={<Radio />} label="Male" />
-                                            </RadioGroup>
-                                            {fieldState.error && <FormHelperText error={fieldState.error?.message}>{fieldState.error?.message}</FormHelperText>}
-                                        </FormControl>
-                                    )}
-                                />
                                 <InputField
                                     label='Phone number'
                                     name='phone'
@@ -171,13 +163,7 @@ export default function Booking(props) {
                                     label='Address'
                                     name='address'
                                     control={control}
-                                />
-                                <InputField
-                                    label='Type of room'
-                                    name='id_room'
-                                    control={control}
-                                    disabled={true}
-                                />
+                                />                                
                                 <Button
                                     variant='contained'
                                     color='success'

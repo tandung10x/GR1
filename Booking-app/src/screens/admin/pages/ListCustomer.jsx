@@ -83,7 +83,7 @@ export default function ListCustomer() {
                 <Navbar />
                 <div className='data-table'>
                     <div className="data-table__title">
-                        <span>List Customer</span>
+                        <span>List Reservations</span>
                     </div>
                     <Box 
                         sx={{ 
@@ -100,21 +100,24 @@ export default function ListCustomer() {
                             <Table stickyHeader aria-label="sticky table" sx={{ minWidth: "1700px"}}>
                                 <TableHead>
                                     <TableRow>
-                                        <TableCell align='left' sx={{ fontWeight: 600, cursor: 'pointer', width: '100px' }}>
-                                            ID Room
+                                        <TableCell
+                                            align='left'
+                                            sx={{ fontWeight: 600, cursor: 'pointer', width: '120px' }}
+                                        >
+                                            Type of homestay
                                         </TableCell>
-                                        <TableCell align='left' sx={{ fontWeight: 600, cursor: 'pointer', width: '100px' }}>
-                                            Location
+                                        <TableCell align='left' sx={{ fontWeight: 600, cursor: 'pointer', width: '150px' }}>
+                                            Homestay location 
                                         </TableCell>
                                         <TableCell
                                             align='left'
-                                            sx={{ fontWeight: 600, cursor: 'pointer', width: '150px' }}
+                                            sx={{ fontWeight: 600, cursor: 'pointer', width: '120px' }}
                                         >
                                             Customer Name
                                         </TableCell>
                                         <TableCell
                                             align='left'
-                                            sx={{ fontWeight: 600, cursor: 'pointer', width: '200px' }}
+                                            sx={{ fontWeight: 600, cursor: 'pointer', width: '170px' }}
                                         >
                                             Customer email
                                         </TableCell>
@@ -123,12 +126,6 @@ export default function ListCustomer() {
                                             sx={{ fontWeight: 600, cursor: 'pointer', width: '150px' }}
                                         >
                                             Customer Phone
-                                        </TableCell>
-                                        <TableCell
-                                            align='left'
-                                            sx={{ fontWeight: 600, cursor: 'pointer', width: '130px' }}
-                                        >
-                                            Homestay
                                         </TableCell>
                                         <TableCell
                                             align='left'
@@ -152,7 +149,7 @@ export default function ListCustomer() {
                                             align='left'
                                             sx={{ width: '100px' }}
                                         >
-                                            Action
+                                            
                                         </TableCell>
                                     </TableRow>
                                 </TableHead>
@@ -164,10 +161,10 @@ export default function ListCustomer() {
                                                     return (
                                                         <TableRow key={index} >
                                                             <TableCell align='left'>
-                                                                {item?.id_room?._id}
+                                                                {item?.id_room?.type_of_room}
                                                             </TableCell>
                                                             <TableCell align='left'>
-                                                                {item?.id_room?.id_location?.name_location}
+                                                                {item?.id_room?.location}
                                                             </TableCell>
                                                             <TableCell align='left'>
                                                                 {item?.id_customer?.fullname}
@@ -177,9 +174,6 @@ export default function ListCustomer() {
                                                             </TableCell>
                                                             <TableCell align='left'>
                                                                 {item?.id_customer?.phone}
-                                                            </TableCell>
-                                                            <TableCell align='left'>
-                                                                {item?.id_room?.type_of_room}
                                                             </TableCell>
                                                             <TableCell align='left'>
                                                                 ${item?.timeCome === null || item?.timeCome === "" || item?.timeLeave === null || item?.timeLeave === "" ?

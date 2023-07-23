@@ -7,20 +7,23 @@ export default function SearchItem({ item }) {
             <img src={item?.image} alt="search-img"/>
             <div className='search-item__desc'>
                 <h1 className='desc-name'>{item?.type_of_room}</h1>
+                <span className="desc-location">
+                    {item?.location}
+                </span>
                 <span className="desc-subtitle">
-                    {item?.other_information}
+                    {item?.max_people} guests
                 </span>
                 <span className="desc-distance">300m from center</span>
-                <span className="desc-taxi">Free airport taxi</span>                
-                <span className="desc-cancel">Free cancellation</span>
                 <span className="desc-cancel-subtitle">
-                    You can cancel later, so lock in this great price today!
-                </span>
+                    {item?.other_information}
+                </span>                
+                <span className="desc-taxi">Free airport taxi</span>                
+                <span className="desc-cancel">Free cancellation for 48 hours</span>                
             </div>
             <div className="search-item__detail">
                 <div className="detail-rating">
                     <span>Excellent</span>
-                    <button>9.0</button>
+                    <button>4.8</button>
                 </div>
                 <div className="detail-text">
                     <p>

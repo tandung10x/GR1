@@ -49,7 +49,7 @@ export default function ListHomestayPage() {
                 <Navbar />
                 <div className='data-table'>
                     <div className="data-table__title">
-                        <span>List Homestay</span>
+                        <span>List Homestays</span>
                         {
                             user?.role === 'admin' && <Link
                                 to='/admin/homestays/new-homestay'
@@ -68,13 +68,13 @@ export default function ListHomestayPage() {
                                             align='left'
                                             sx={{ fontWeight: 600, minWidth: '50px' }}
                                         >
-                                            Room ID
+                                            
                                         </TableCell>
                                         <TableCell
                                             align='left'
                                             sx={{ fontWeight: 600, cursor: 'pointer', minWidth: '150px' }}
                                         >
-                                            Destination
+                                            Location
                                         </TableCell>
                                         <TableCell
                                             align='left'
@@ -106,24 +106,20 @@ export default function ListHomestayPage() {
                                         >
                                             Other information
                                         </TableCell>
-                                        <TableCell align='right'>Actions</TableCell>
+                                        <TableCell align='right'></TableCell>
                                     </TableRow>
                                 </TableHead>
                                 <TableBody>
                                     {user?.role === 'admin' && listRoom.map((item, index) => {
                                         return (
                                             <TableRow key={index} >
-                                                <TableCell align='left'>{item?._id}</TableCell>
-                                                <TableCell align='left'>
-                                                    {item?.id_location?.name_location}
-                                                </TableCell>
+                                                <TableCell align='left'>{index+1}</TableCell>
+                                                <TableCell align='left'>{item?.location}</TableCell>
                                                 <TableCell align='left'>{item?.type_of_room}</TableCell>
                                                 <TableCell align='left'>{item?.max_people}</TableCell>
                                                 <TableCell align='left'>${item?.cost_per_day}</TableCell>
                                                 <TableCell align='left'>{item?.id_user?.username ? item?.id_user?.username : "Not yet"}</TableCell>
-                                                <TableCell align='left'>
-                                                    {item?.other_information}
-                                                </TableCell>
+                                                <TableCell align='left'>{item?.other_information}</TableCell>
                                                 <TableCell align='right' sx={{ display: 'flex', alignItems: 'center' }}>
                                                     <div className="cellAction">
                                                         <Link to={`/admin/homestays/${item?._id}`} style={{ textDecoration: "none" }}>
@@ -144,17 +140,13 @@ export default function ListHomestayPage() {
                                         (user?.role === 'staff' && staffRoom.map((item, index) => { 
                                             return (
                                                 <TableRow key={index}>
-                                                    <TableCell align='left'>{item?._id}</TableCell>
-                                                    <TableCell align='left'>
-                                                        {item?.id_location?.name_location}
-                                                    </TableCell>
+                                                    <TableCell align='left'>{index+1}</TableCell>
+                                                    <TableCell align='left'>{item?.location}</TableCell>
                                                     <TableCell align='left'>{item?.type_of_room}</TableCell>
                                                     <TableCell align='left'>{item?.max_people}</TableCell>
-                                                    <TableCell align='left'>{item?.cost_per_day && '$' + item?.cost_per_day }</TableCell>
+                                                    <TableCell align='left'>${item?.cost_per_day}</TableCell>
                                                     <TableCell align='left'>{item?.id_user?.username ? item?.id_user?.username : "Not yet"}</TableCell>
-                                                    <TableCell align='left'>
-                                                        {item?.other_information}
-                                                    </TableCell>
+                                                    <TableCell align='left'>{item?.other_information}</TableCell>
                                                     <TableCell align='right'>
                                                         {item?._id ? <div className="cellAction">
                                                             <Link to={`/admin/homestays/${item?._id}`} style={{ textDecoration: "none" }}>

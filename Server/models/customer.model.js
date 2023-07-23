@@ -2,8 +2,7 @@ const mongoose = require("mongoose")
 
 const customerSchema= mongoose.Schema({
   fullname: String,
-  age: Number, 
-  gender: String,
+  age: Number,
   phone: {
     type: String,
     required: true

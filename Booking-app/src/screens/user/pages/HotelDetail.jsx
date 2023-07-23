@@ -6,6 +6,7 @@ import roomApi from '../../../api/roomApi';
 import { calDiffDates } from '../../../utils/calDiffDates';
 import Footer from '../components/footer/Footer'
 import Header from '../components/header/Header'
+import { FaStar, FaRegHeart } from 'react-icons/fa'
 
 export default function HotelDetail(props) {
     const { id } = useParams();
@@ -14,11 +15,14 @@ export default function HotelDetail(props) {
     const numNight = calDiffDates(props.dates[0].startDate, props.dates[0].endDate);
 
     const photos = [
-        "https://luxurynhatle.muongthanh.com/images/hotels/rooms/original/1-giuong_1678439248.jpg",
-        "https://luxurynhatle.muongthanh.com/images/rooms/2023/03/10/original/z4171313190619_90c1f42c0f552fb6a3ab7eabf46898a5_1678439245.jpg",
-        "https://luxurynhatle.muongthanh.com/images/rooms/2023/03/10/original/z4171312347166_18bdb79a501fa6ae7bd7b009df19849b_1678439161.jpg",
-        "https://luxurynhatle.muongthanh.com/images/rooms/2023/03/10/original/z4171312177603_072e5bad4bace80032ebb31565dca3ff_1678439190.jpg",
-        "https://luxurynhatle.muongthanh.com/images/rooms/2023/03/10/original/z4171312905406_00735fbb992d38e170e3f61c2d78a1ae_1678439234.jpg",
+        "https://a0.muscache.com/im/pictures/miso/Hosting-22537009/original/37658b27-fd29-4275-a579-cf564a9b2b37.jpeg?im_w=720",        
+        "https://a0.muscache.com/im/pictures/miso/Hosting-22537009/original/57f4efc8-bb2c-4979-9ef2-9298a4a90435.jpeg?im_w=720",
+        "https://a0.muscache.com/im/pictures/miso/Hosting-22537009/original/c92e156d-374f-457f-b4b1-10ef3a610d30.jpeg?im_w=720",
+        "https://a0.muscache.com/im/pictures/6f5ba084-2083-4017-b4fd-d996ee89bcbe.jpg?im_w=1200",
+        "https://a0.muscache.com/im/pictures/miso/Hosting-22537009/original/c6da6951-4628-4994-86ec-ac78c74ff325.jpeg?im_w=1200",
+        "https://a0.muscache.com/im/pictures/miso/Hosting-22537009/original/800b2eb7-4a5f-4f29-95cc-9a9820b7dbcb.jpeg?im_w=1200",        
+        "https://a0.muscache.com/im/pictures/22f90720-bd67-4011-a56a-65a8df4e85a9.jpg?im_w=720",        
+        "https://a0.muscache.com/im/pictures/d5ff2b10-5ca5-4dea-a924-0dc248371b9f.jpg?im_w=1200"
     ]
 
     useEffect(() => {
@@ -37,12 +41,10 @@ export default function HotelDetail(props) {
                 <div className="hotel-detail__top">
                     <div className="hotel-detail__top-left">
                         <h2>{homestay?.type_of_room}</h2>
-                        {/* <div className="hotel-address">
-                            <LocationOn fontSize='18' />
-                            <span>{homestay?.address}</span>
-                        </div> */}
-                        <p className="hotel-distance">
-                            Excellent location - 300m from center
+                        <p className="hotel-review">
+                            <FaStar /> 4.8 | 10 reviews
+                            <span className="hotel-location">{homestay?.location}</span>
+                            <span className="hotel-save" ><FaRegHeart /> Save </span>
                         </p>
                         <p className="hotel-price">
                             Book a stay over ${homestay?.cost_per_day * numNight} at this property and get a
@@ -61,13 +63,23 @@ export default function HotelDetail(props) {
                     <div className="hotel-detail__bottom-text">
                         <h3>Stay in the heart of city</h3>
                         <p className="desc-detail-hotel">
-                            {homestay?.other_information}
+                            {homestay?.max_people} guests | {homestay?.other_information}
+                        </p>
+                        <p className="desc-detail-hotel">
+                            We are excited to introduce our home, a tropical building overlooking sceneries 
+                            built to accommodate large groups and providing privacy if traveling in pairs. 
+                            Come visit our house, enjoy a unique, high-end vibe for you stay in {homestay?.location}
                         </p>
                     </div>
                     <div className="hotel-detail__bottom-price">
                         <h3>Property Highlights</h3>
                         <span>
-                            Highly rated by recent guests (9.0)
+                            <p className='hotel-highlight'>
+                                Highly rated by recent guests (4.8)
+                            </p>
+                            <p className='hotel-highlight'>
+                                Free cancellation for 48 hours
+                            </p>
                         </span>
                         <p>
                             <b style={{ fontSize: '22px'}}>${homestay?.cost_per_day * numNight}</b> 

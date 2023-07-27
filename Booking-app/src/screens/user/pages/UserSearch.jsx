@@ -15,6 +15,7 @@ export default function UserSearch(props) {
     //const [dates, setDates] = useState(location.state?.dates);
     const [min, setMin] = useState(10);
     const [max, setMax] = useState(999);
+    const [guest, setGuest] = useState(1);
     const [listSearchData, setListSearchData] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
     const dispatch = useDispatch();
@@ -25,10 +26,10 @@ export default function UserSearch(props) {
 
     const handleSearch = useCallback(async () => {
         setIsLoading(true);
-        const response = await roomApi.getRoomByPrice(min, max);
+        const response = await roomApi.getRoomByPrice(min, max, guest);
         setIsLoading(false);
         setListSearchData(response);
-    }, [min, max])
+    }, [min, max, guest])
 
     useEffect(() => {
         handleSearch();
@@ -83,7 +84,18 @@ export default function UserSearch(props) {
                                             onChange={(e) => setMax(e.target.value)}
                                             className="list-search__options-inp"
                                         />
-                                    </div>                                  
+                                    </div>
+                                    <div className="list-search__options-item">
+                                        <span>
+                                            Guests
+                                        </span>
+                                        <input
+                                            type="number"
+                                            value={guest}
+                                            onChange={(e) => setGuest(e.target.value)}
+                                            className="list-search__options-inp"
+                                        />
+                                    </div>
                                 </div>
                             </div>
                             <Button

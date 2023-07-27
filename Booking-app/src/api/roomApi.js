@@ -17,9 +17,9 @@ const roomApi = {
     getAll: () => {
         return axiosClient.get(ENDPOINT.rooms);
     },
-    getRoomByPrice: (price1 = 10, price2 = 999) => {
+    getRoomByPrice: (price1 = 10, price2 = 999, guest = 1) => {
         if(!!price1 && !!price2) {
-            return axiosClient.get(`${ENDPOINT.rooms}/${price1}/${price2}`);
+            return axiosClient.get(`${ENDPOINT.rooms}/${price1}/${price2}/${guest}`);
         }
     },
     getRoomByUser: (id_user) => {

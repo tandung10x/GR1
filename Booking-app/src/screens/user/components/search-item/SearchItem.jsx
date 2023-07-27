@@ -11,7 +11,7 @@ export default function SearchItem({ item }) {
                     {item?.location}
                 </span>
                 <span className="desc-subtitle">
-                    {item?.max_people} guests
+                    {item?.max_people} Guests
                 </span>
                 <span className="desc-distance">300m from center</span>
                 <span className="desc-cancel-subtitle">

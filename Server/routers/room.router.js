@@ -27,7 +27,7 @@ router
   .delete(asyncHandle(deleteRoom))  
 
 router
-  .route("/:price1/:price2")
+  .route("/:price1/:price2/:guest")
   .get(asyncHandle(getRoomByPrice))
 
 

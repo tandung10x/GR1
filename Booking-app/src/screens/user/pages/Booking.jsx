@@ -78,7 +78,9 @@ export default function Booking(props) {
         const data = {
             ...value,
             id_room: location?.state?.id_room,
-            total: location?.state?.price
+            total: location?.state?.price * numNight,
+            timeCome: format(props.dates[0].startDate, "MM/dd/yyyy"),
+            timeLeave: format(props.dates[0].endDate, "MM/dd/yyyy")
         }
         setIsLoading(true);
         const response = await statisticalApi.create(data);

@@ -49,7 +49,9 @@ module.exports= {
     // body.id_customer= customer._id;
     let stttc= {
       total: body.total,
-      id_customer: customer._id
+      id_customer: customer._id,
+      timeCome: body.timeCome,
+      timeLeave: body.timeLeave
     }
     if (body.id_room){
       stttc.id_room= body.id_room

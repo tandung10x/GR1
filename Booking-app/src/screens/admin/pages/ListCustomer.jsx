@@ -67,15 +67,6 @@ export default function ListCustomer() {
         dispatch(getAllStatistical());
     }
 
-    const dayDiff = (firstDate, secondDate) => {
-        const startDay = new Date(firstDate);
-        const endDay = new Date(secondDate);
-        const milis = startDay.getTime() - endDay.getTime();
-        const day = milis / (1000 * 3600 * 24);
-
-        return Math.round(Math.abs(day));
-    }
-
     return (
         <div className='admin-list'>
             <Sidebar />
@@ -97,7 +88,7 @@ export default function ListCustomer() {
                         }}
                     >
                         <TableContainer>
-                            <Table stickyHeader aria-label="sticky table" sx={{ minWidth: "1700px"}}>
+                            <Table stickyHeader aria-label="sticky table" sx={{ minWidth: "1000px"}}>
                                 <TableHead>
                                     <TableRow>
                                         <TableCell
@@ -111,7 +102,7 @@ export default function ListCustomer() {
                                         </TableCell>
                                         <TableCell
                                             align='left'
-                                            sx={{ fontWeight: 600, cursor: 'pointer', width: '120px' }}
+                                            sx={{ fontWeight: 600, cursor: 'pointer', width: '140px' }}
                                         >
                                             Customer Name
                                         </TableCell>
@@ -123,25 +114,25 @@ export default function ListCustomer() {
                                         </TableCell>
                                         <TableCell
                                             align='left'
-                                            sx={{ fontWeight: 600, cursor: 'pointer', width: '150px' }}
+                                            sx={{ fontWeight: 600, cursor: 'pointer', width: '100px' }}
                                         >
                                             Customer Phone
                                         </TableCell>
                                         <TableCell
                                             align='left'
-                                            sx={{ fontWeight: 600, cursor: 'pointer', width: '50px' }}
+                                            sx={{ fontWeight: 600, cursor: 'pointer', width: '30px' }}
                                         >
                                             Total
                                         </TableCell>
                                         <TableCell
                                             align='center'
-                                            sx={{ fontWeight: 600, width: '150px' }}
+                                            sx={{ fontWeight: 600, width: '50px' }}
                                         >
                                             Time come
                                         </TableCell>
                                         <TableCell
                                             align='center'
-                                            sx={{ fontWeight: 600, width: '150px' }}
+                                            sx={{ fontWeight: 600, width: '50px' }}
                                         >
                                             Time leave
                                         </TableCell>
@@ -177,7 +168,7 @@ export default function ListCustomer() {
                                                             </TableCell>
                                                             <TableCell align='left'>
                                                                 ${item?.timeCome === null || item?.timeCome === "" || item?.timeLeave === null || item?.timeLeave === "" ?
-                                                                    `${item?.total}` : `${ +item?.total * +dayDiff(item?.timeCome, item?.timeLeave)}`
+                                                                    `${item?.total}` : `${ +item?.total}`
                                                                 }
                                                             </TableCell>
                                                             <TableCell align='center'>
@@ -199,7 +190,7 @@ export default function ListCustomer() {
                                                                 />
                                                             </TableCell>
                                                             <TableCell>
-                                                                <Button color='warning' variant='contained' size='small' sx={{ fontSize: '12px'}} onClick={handleUpdate}>update</Button>
+                                                                <Button color='warning' variant='contained' size='small' sx={{ fontSize: '12px'}} onClick={handleUpdate}>checkout</Button>
                                                             </TableCell>
                                                         </TableRow>
                                                     )
@@ -210,7 +201,7 @@ export default function ListCustomer() {
                                                     <TableCell style={{ fontWeight: 'bold', fontSize: '20px' }} colSpan={4}>
                                                         Total revenue: {" "}$
                                                         {
-                                                            listCustomer?.map(item => item?.total* +dayDiff(item?.timeCome, item?.timeLeave))?.reduce((prev, cur) => (prev + cur), 0)
+                                                            listCustomer?.map(item => item?.total)?.reduce((prev, cur) => (prev + cur), 0)
                                                         }
                                                     </TableCell>
                                                 </TableRow>

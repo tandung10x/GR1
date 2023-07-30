@@ -28,7 +28,7 @@ export default function Header({ type }) {
                         aria-controls={open ? 'basic-menu' : undefined}
                         onClick={handleClick}
                     >
-                        {name}
+                        User
                     </h4>
                     <Menu
                         id="basic-menu"
@@ -38,7 +38,10 @@ export default function Header({ type }) {
                         MenuListProps={{
                             'aria-labelledby': 'basic-button',
                         }}
-                    >              
+                    >   
+                        <MenuItem>
+                            <Link to={`/user-trips`} style={{ textDecoration: 'none', color: 'black' }}>My profile</Link>
+                        </MenuItem>          
                         <MenuItem onClick={logout} isLoading={isLoading}>Logout</MenuItem>
                     </Menu>
                 </div>

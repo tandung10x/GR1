@@ -21,6 +21,7 @@ import ProtectedRoute from "./screens/admin/components/routing/ProtectedRoute";
 import EditRoom from "./screens/admin/components/update-info/EditRoom";
 import EditUser from "./screens/admin/components/update-info/EditUser";
 import { useState } from "react";
+import UserTrips from "./screens/user/pages/UserTrips";
 
 function App() {
   const [dates, setDates] = useState([
@@ -40,6 +41,7 @@ function App() {
           <Route path='/user-login' element={<UserLogin />} />
           <Route path='/homestays/:id' element={<HotelDetail dates={dates} setDates={setDates}/>} />
           <Route path='/booking' element={<Booking dates={dates} setDates={setDates}/>} />
+          <Route path='/user-trips' element={<UserTrips />} />
 
           {/* admin */}
           <Route path='/admin-login' element={<AdminLogin />} />

@@ -13,7 +13,7 @@ import { userColumns } from "./screens/admin/utils/data-table";
 import AddUserPage from "./screens/admin/pages/AddUserPage";
 import AddHomeStayPage from "./screens/admin/pages/AddHomeStayPage";
 import NotFound from "./components/404/NotFound";
-
+import UserLogin from "./screens/user/pages/UserLogin";
 import AdminLogin from "./screens/admin/pages/AdminLogin";
 import ListHomestayPage from "./screens/admin/pages/ListHomestayPage";
 import ListCustomer from "./screens/admin/pages/ListCustomer";
@@ -37,6 +37,7 @@ function App() {
         <Routes>
           {/* user */}
           <Route path='/' element={<UserSearch dates={dates} setDates={setDates}/>} />
+          <Route path='/user-login' element={<UserLogin />} />
           <Route path='/homestays/:id' element={<HotelDetail dates={dates} setDates={setDates}/>} />
           <Route path='/booking' element={<Booking dates={dates} setDates={setDates}/>} />
 

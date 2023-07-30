@@ -7,8 +7,8 @@ import NotificationsNoneOutlinedIcon from "@mui/icons-material/NotificationsNone
 import ChatBubbleOutlineOutlinedIcon from "@mui/icons-material/ChatBubbleOutlineOutlined";
 import ListOutlinedIcon from "@mui/icons-material/ListOutlined";
 import { Menu, MenuItem } from "@mui/material";
-import { useSelector, useDispatch } from 'react-redux'
-import { Link, useNavigate } from 'react-router-dom'
+import { useSelector, useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import { removeManager } from "../../redux/authSlice";
 
 export default function Navbar() {
@@ -76,10 +76,7 @@ export default function Navbar() {
               MenuListProps={{
                 'aria-labelledby': 'basic-button',
               }}
-            >
-              <MenuItem>
-                <Link to={`/admin/users/${user?._id}`} style={{ textDecoration: 'none', color: 'black' }}>My profile</Link>
-              </MenuItem>
+            >              
               <MenuItem onClick={logout}>Logout</MenuItem>
             </Menu>
           </div>

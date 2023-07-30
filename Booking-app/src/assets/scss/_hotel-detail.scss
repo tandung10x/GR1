@@ -7,6 +7,7 @@
         align-items: flex-start;
 
         &-left {
+            width: 100%;
             & h2 {
                 text-transform: capitalize;
             }
@@ -36,7 +37,8 @@
             }
 
             .hotel-save {
-                padding-left: 610px;
+                float: right;
+                width: 50px;
                 font-weight: 400;
                 text-decoration: underline;
             }

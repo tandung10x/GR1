@@ -14,6 +14,9 @@ const statisticalApi = {
     getStatisticalByRoom: (id_room) => {
         return axiosClient.get(`${ENDPOINT.statistical}/${id_room}`);
     },
+    getStatisticalByEmail: (email) => {
+        return axiosClient.get(`${ENDPOINT.statistical}/trips/${email}`);
+    },
     getAll: () => {
         return axiosClient.get(ENDPOINT.statistical);
     },

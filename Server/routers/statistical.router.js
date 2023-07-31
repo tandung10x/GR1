@@ -5,6 +5,7 @@ const asyncHandle= require("../middlewares/asyncHandle");
 const {
   getAll,
   getStatisticalOfRoom,
+  getStatisticalByEmail,
   createStatistical,
   deleteStatistical,
   confirmBooking,
@@ -21,6 +22,10 @@ router
   .get(asyncHandle(getStatisticalOfRoom))  
   .delete(asyncHandle(deleteStatistical))
   .patch(asyncHandle(checkInCheckOut))
+
+router
+  .route("/trips/:email")
+  .get(asyncHandle(getStatisticalByEmail)) 
 
 router
   .route("/confirm/:id/:otp")

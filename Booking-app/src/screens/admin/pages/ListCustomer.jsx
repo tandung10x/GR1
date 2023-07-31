@@ -1,7 +1,6 @@
 import { Button, CircularProgress, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@mui/material';
 import { Box } from '@mui/system';
-import React, { useEffect } from 'react'
-import { useState } from 'react';
+import React, { useEffect, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import Navbar from '../components/navbar/Navbar';
 import Sidebar from '../components/sidebar/Sidebar';
@@ -20,7 +19,6 @@ export default function ListCustomer() {
     const [statisticalItem, setStatisticalItem] = useState();
     const [isLoading, setIsLoading] = useState(false);
     
-
     useEffect(() => {
         setListCustomer([...statisticals]);
     }, [statisticals])

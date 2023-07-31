@@ -113,7 +113,10 @@ module.exports= {
       throw new ErrorResponse(404, "Not found statistical. Check id statistical. Please");
     }
     return res.status(200).json(result);
+  },
+  getStatisticalByEmail: async (req, res, next)=>{
+    let customer= await customerModel.findOne({email: req.params.email});
+    let statisticals= await statisticalModel.find({id_customer: customer._id}).populate("id_room");
+    return res.status(200).json(statisticals);
   }
-
-
 }

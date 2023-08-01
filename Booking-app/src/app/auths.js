@@ -8,13 +8,14 @@ import { signInWithPopup } from "firebase/auth";
 // This code is for fatching User data
 export function useAuth() {
 	const [authUser, authLoading, error] = useAuthState(auth);
+	console.log(authUser);
 	const [isLoading, setLoading] = useState(true);
 	const [user, setUser] = useState(null);
 
 	useEffect(() => {
 		async function fetchData() {
 			setLoading(true);
-			const ref = doc(db, "users", authUser.uid);
+			const ref = doc(db, "userinfo", authUser.uid);
 			const docSnap = await getDoc(ref);
 			setUser(docSnap.data());
 			setLoading(false);
@@ -24,7 +25,7 @@ export function useAuth() {
 			if (authUser) fetchData();
 			else setLoading(false); // Not signed in
 		}
-	}, [authLoading]);
+	}, [authUser, authLoading]);
 
 	return { user, isLoading, error };
 }
@@ -32,33 +33,25 @@ export function useAuth() {
 export function useGoogleLogin() {
 	const [isGoogleLoading, setLoading] = useState(false);
 	const navigate = useNavigate();
-	const [name, setName] = useState("");
-	const [email, setEmail] = useState("");
 
-	async function googleLogin() {
+	async function googleLogin(redirectTo = "/") {
 		setLoading(true);
 
 		try {
 			const result = await signInWithPopup(auth, provider);
-			console.log(result);
-			setName(result.user.displayName);
-			setEmail(result.user.email);
-			//const uid = result.user.uid;
-			// const userData = {
-			// 	name: name,
-			// 	email: email,
-			// 	// Add other user data if needed
-			// };
-			// await setDoc(doc(db, "users", uid), {
-			// 	id: uid,
-			// 	username: name.toLowerCase(),
-			// 	avatar: "",
-			// 	date: Date.now(),
-			// });
-			getNameEmail(name, email);
+			const name = result.user.displayName;
+			const email = result.user.email;
+			const uid = result.user.uid;
+			
+			await setDoc(doc(db, "userinfo", uid), {
+				id: uid,
+				username: name,
+				email: email,
+				date: Date.now(),
+			});
+			
 			navigate("/");
-		} catch (error) {
-			alert("Logging in failed");
+		} catch (error) {			
 			setLoading(false);
 		} finally {
 			setLoading(false);
@@ -68,17 +61,12 @@ export function useGoogleLogin() {
 	return { googleLogin, isGoogleLoading };
 }
 
-export function getNameEmail(name, email) {
-	return {name, email};
-}
-
 export function useLogout() {
 	const [signOut, isLoading] = useSignOut(auth);
 	const navigate = useNavigate();
 
 	async function logout() {
 		if (await signOut()) {
-			alert("You are logged out");
 			navigate("/user-login");
 		}
 	}

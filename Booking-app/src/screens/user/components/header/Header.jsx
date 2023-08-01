@@ -1,14 +1,16 @@
 import React, { useState } from "react";
 import { Link } from 'react-router-dom';
 import { Menu, MenuItem } from "@mui/material";
-import { useLogout, getNameEmail } from "../../../../app/auths";
+import { useLogout, useAuth } from "../../../../app/auths";
 
 export default function Header({ type }) {
     const [anchorEl, setAnchorEl] = useState(null);
     const open = Boolean(anchorEl);
     const { logout, isLoading } = useLogout();
-    const { name, email } = getNameEmail();
-    console.log(name);
+    const { user, authLoading } = useAuth();
+
+    console.log(user);
+
     const handleClick = (event) => {
         setAnchorEl(event.currentTarget);
     };
@@ -28,7 +30,7 @@ export default function Header({ type }) {
                         aria-controls={open ? 'basic-menu' : undefined}
                         onClick={handleClick}
                     >
-                        User
+                        {user.username}
                     </h4>
                     <Menu
                         id="basic-menu"

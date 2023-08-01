@@ -25,7 +25,7 @@ export default function UserLogin() {
                     size='small'
                     sx={{ marginTop: 2 }}
 					isLoading={isGoogleLoading}
-					onClick={() => googleLogin()}
+					onClick={() => googleLogin({ redirectTo: "/" })}
 				>
 					<img
 						style={{ height: "28px", marginRight: "4px" }}

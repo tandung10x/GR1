@@ -23,7 +23,7 @@ export default function UserTrips() {
             setListOrder(response);
         }
         getListOrder();
-    });
+    }, []);
 
     const handleSetTimeCome = (index, value)=>{
         setListOrder((prev) => {

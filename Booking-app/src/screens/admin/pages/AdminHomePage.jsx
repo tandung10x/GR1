@@ -22,24 +22,21 @@ function AdminHomePage() {
     dispatch(getAllManager());
     dispatch(getAllStatistical());
   }, [dispatch])
-
-  const getRoomStaff = async() => {
-    const response = await roomApi.getRoomByUser(user?._id);
-    setRoomNumStaff(response.length);
-  }
-  getRoomStaff();
-
-  const getOrderStaff = async() => {
-    const response = await roomApi.getRoomByUser(user?._id);
-    let response1 = 0;
-    for (let i = 0; i < response.length; i++)
-    {
-      const res = await statisticalApi.getStatisticalByRoom(response[i]._id);
-      response1 += res.length;
+  
+  useEffect(() => {
+    const getOrderStaff = async() => {
+      const response = await roomApi.getRoomByUser(user?._id);
+      setRoomNumStaff(response.length);
+      let response1 = 0;
+      for (let i = 0; i < response.length; i++)
+      {
+        const res = await statisticalApi.getStatisticalByRoom(response[i]._id);
+        response1 += res.length;
+      }
+      setOrderNumStaff(response1);
     }
-    setOrderNumStaff(response1);
-  }
-  getOrderStaff();
+    getOrderStaff();
+  }, [user])
 
   return (
     <div className='admin'>

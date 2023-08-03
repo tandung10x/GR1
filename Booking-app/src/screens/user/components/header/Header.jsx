@@ -7,9 +7,7 @@ export default function Header({ type }) {
     const [anchorEl, setAnchorEl] = useState(null);
     const open = Boolean(anchorEl);
     const { logout, isLoading } = useLogout();
-    const { user, authLoading } = useAuth();
-
-    console.log(user);
+    const { userinfo } = useAuth();
 
     const handleClick = (event) => {
         setAnchorEl(event.currentTarget);
@@ -30,7 +28,7 @@ export default function Header({ type }) {
                         aria-controls={open ? 'basic-menu' : undefined}
                         onClick={handleClick}
                     >
-                        {user.username}
+                        {userinfo.username}
                     </h4>
                     <Menu
                         id="basic-menu"

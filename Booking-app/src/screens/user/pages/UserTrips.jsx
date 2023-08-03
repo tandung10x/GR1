@@ -6,8 +6,9 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import EditForm from '../../admin/components/edit-form/EditForm';
 import { getAllStatistical } from '../../../redux/statisticalSlice';
+import { useAuth } from '../../../app/auths';
 
-export default function UserTrips(props) {
+export default function UserTrips() {
     const dispatch = useDispatch();
     const [listOrder, setListOrder] = useState([]);
     const [time, setTime] = useState({
@@ -16,14 +17,15 @@ export default function UserTrips(props) {
     });
     const [statisticalItem, setStatisticalItem] = useState();
     const [isLoading, setIsLoading] = useState(false);
+    const { userinfo } = useAuth();
     
     useEffect(() => {
         const getListOrder = async() => {
-            const response = await statisticalApi.getStatisticalByEmail(props.userinfo.email);
+            const response = await statisticalApi.getStatisticalByEmail(userinfo?.email_);
             setListOrder(response);
         }
         getListOrder();
-    }, [props]);
+    }, [userinfo]);
 
     const handleSetTimeCome = (index, value)=>{
         setListOrder((prev) => {
@@ -69,7 +71,7 @@ export default function UserTrips(props) {
 
     return (
         <div>
-            <Header name={props.userinfo.name}/>
+            <Header />
             <div className='container' style={{ padding: '30px 0'}}>
                 <div className='data-table'>
                     <Box sx={{ 

@@ -8,16 +8,15 @@ import { signInWithPopup } from "firebase/auth";
 // This code is for fatching User data
 export function useAuth() {
 	const [authUser, authLoading, error] = useAuthState(auth);
-	console.log(authUser);
 	const [isLoading, setLoading] = useState(true);
-	const [user, setUser] = useState(null);
+	const [userinfo, setUserinfo] = useState({});
 
 	useEffect(() => {
 		async function fetchData() {
 			setLoading(true);
 			const ref = doc(db, "userinfo", authUser.uid);
 			const docSnap = await getDoc(ref);
-			setUser(docSnap.data());
+			setUserinfo(docSnap.data());
 			setLoading(false);
 		}
 
@@ -27,7 +26,7 @@ export function useAuth() {
 		}
 	}, [authUser, authLoading]);
 
-	return { user, isLoading, error };
+	return { userinfo, isLoading, error };
 }
 
 export function useGoogleLogin() {
@@ -44,13 +43,12 @@ export function useGoogleLogin() {
 			const uid = result.user.uid;
 			
 			await setDoc(doc(db, "userinfo", uid), {
-				id: uid,
 				username: name,
-				email: email,
-				date: Date.now(),
+				email_: email,
 			});
 			
 			navigate("/");
+			//return result.user;
 		} catch (error) {			
 			setLoading(false);
 		} finally {

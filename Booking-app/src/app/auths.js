@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { setDoc, doc, getDoc } from "firebase/firestore";
 import { signInWithPopup } from "firebase/auth";
 
-// This code is for fatching User data
+// This code is for fetching User data
 export function useAuth() {
 	const [authUser, authLoading, error] = useAuthState(auth);
 	const [isLoading, setLoading] = useState(true);

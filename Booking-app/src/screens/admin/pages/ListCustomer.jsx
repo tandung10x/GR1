@@ -4,63 +4,23 @@ import React, { useEffect, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import Navbar from '../components/navbar/Navbar';
 import Sidebar from '../components/sidebar/Sidebar';
-import EditForm from '../components/edit-form/EditForm';
-import statisticalApi from '../../../api/statisticalApi';
 import { getAllStatistical } from '../../../redux/statisticalSlice';
+import roomApi from '../../../api/roomApi';
 
 export default function ListCustomer() {
     const dispatch = useDispatch();
     const { statisticals } = useSelector(state => state.statistical);
     const [listCustomer, setListCustomer] = useState([]);
-    const [time, setTime] = useState({
-        timeCome: '',
-        timeLeave: ''
-    });
-    const [statisticalItem, setStatisticalItem] = useState();
     const [isLoading, setIsLoading] = useState(false);
     
     useEffect(() => {
         setListCustomer([...statisticals]);
     }, [statisticals])
 
-    const handleSetTimeCome = (index, value)=>{
-        setListCustomer((prev) => {
-            const prevValue = [...prev]
-            const newValue = { ...prevValue[index], timeCome: value }
-            prevValue[index] = newValue;
-            return prevValue;
-        })
-        setTime(prev => {
-            return {
-                ...prev,
-                timeCome: value
-            }
-        })
-    }
-
-    const handleSetTimeLeave = (index, value) => {
-        setListCustomer((prev) => {
-            const prevValue = [...prev]
-            const newValue = { ...prevValue[index], timeLeave: value }
-            prevValue[index] = newValue;
-            return prevValue;
-        })
-        setTime(prev => {
-            return {
-                ...prev,
-                timeLeave: value
-            }
-        })
-    }
-
-    const handleUpdate = async (e) => {
-        const values = {
-            timeCome: time.timeCome,
-            timeLeave: time.timeLeave,
-        }
+    const handleUpdate = async (item) => {
         setIsLoading(true);
-        await statisticalApi.update(statisticalItem?._id, values);
-        alert("Update successfully");
+        await roomApi.update(item?.id_room._id, {isFree: 1});
+        alert("Checkout successfully");
         setIsLoading(false);
         dispatch(getAllStatistical());
     }
@@ -165,30 +125,16 @@ export default function ListCustomer() {
                                                                 {item?.id_customer?.phone}
                                                             </TableCell>
                                                             <TableCell align='left'>
-                                                                ${item?.timeCome === null || item?.timeCome === "" || item?.timeLeave === null || item?.timeLeave === "" ?
-                                                                    `${item?.total}` : `${ +item?.total}`
-                                                                }
+                                                                ${item?.total}
                                                             </TableCell>
                                                             <TableCell align='center'>
-                                                                <EditForm
-                                                                    index={index}
-                                                                    name='timeCome'
-                                                                    value={item?.timeCome === null || item?.timeCome === "" ? "Choose date" : item?.timeCome}
-                                                                    setValue={handleSetTimeCome}
-                                                                    onClick={() => setStatisticalItem(item)}
-                                                                />
+                                                                {item?.timeCome}
                                                             </TableCell>
                                                             <TableCell align='center'>
-                                                                <EditForm
-                                                                    index={index}
-                                                                    name='timeLeave'
-                                                                    value={item?.timeLeave === null || item?.timeLeave === "" ? "Choose date" : item?.timeLeave}
-                                                                    setValue={handleSetTimeLeave}
-                                                                    onClick={() => setStatisticalItem(item)}
-                                                                />
+                                                                {item?.timeLeave}
                                                             </TableCell>
                                                             <TableCell>
-                                                                <Button color='warning' variant='contained' size='small' sx={{ fontSize: '12px'}} onClick={handleUpdate}>checkout</Button>
+                                                                <Button color='warning' variant='contained' size='small' sx={{ fontSize: '12px'}} onClick={() =>{handleUpdate(item)}}>checkout</Button>
                                                             </TableCell>
                                                         </TableRow>
                                                     )

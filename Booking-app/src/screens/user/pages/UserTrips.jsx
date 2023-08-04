@@ -8,7 +8,7 @@ import EditForm from '../../admin/components/edit-form/EditForm';
 import { getAllStatistical } from '../../../redux/statisticalSlice';
 import { useAuth } from '../../../app/auths';
 
-export default function UserTrips() {
+export default function UserTrips(props) {
     const dispatch = useDispatch();
     const [listOrder, setListOrder] = useState([]);
     const [time, setTime] = useState({
@@ -18,14 +18,18 @@ export default function UserTrips() {
     const [statisticalItem, setStatisticalItem] = useState();
     const [isLoading, setIsLoading] = useState(false);
     const { userinfo } = useAuth();
+    let isHasListOrder = true;
     
     useEffect(() => {
         const getListOrder = async() => {
-            const response = await statisticalApi.getStatisticalByEmail(userinfo?.email_);
-            setListOrder(response);
+            const response = await statisticalApi.getStatisticalByEmail(props.userinfo.email_!==undefined ? props?.userinfo.email_ : "tandung10x1998@gmail.com");
+            if (response)
+                setListOrder(response);
+            else
+                isHasListOrder = false;
         }
         getListOrder();
-    }, [userinfo]);
+    }, [props]);
 
     const handleSetTimeCome = (index, value)=>{
         setListOrder((prev) => {
@@ -80,6 +84,8 @@ export default function UserTrips() {
                     }}>
                         <h1>Account</h1>
                     </Box>
+                    <p style={{margin: '20px 20px 10px 20px'}}>{userinfo.username}</p>
+                    <p style={{margin: '10px 20px'}}>{userinfo.email_}</p>
                     <h2 style={{margin: '30px 20px 10px 20px'}}>Trips</h2>
                     <Box sx={{
                         flex: 6, 
@@ -133,7 +139,7 @@ export default function UserTrips() {
                                     {
                                         isLoading ? <CircularProgress size={30} color='primary' /> : (
                                             <>
-                                            {listOrder.map((item, index) => {
+                                            {isHasListOrder && listOrder.map((item, index) => {
                                                     return (
                                                         <TableRow key={index} >
                                                             <TableCell align='left'>

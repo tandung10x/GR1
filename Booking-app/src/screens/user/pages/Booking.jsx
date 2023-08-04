@@ -74,6 +74,9 @@ export default function Booking(props) {
         getRoom();
     }, [setValue, location])
 
+    setValue("fullname", props.userinfo.username);
+    setValue("email", props.userinfo.email_);
+
     const onsubmit = async (value) => {
         const data = {
             ...value,
@@ -131,6 +134,7 @@ export default function Booking(props) {
                                     name='fullname'
                                     label='Fullname'
                                     control={control}
+                                    disabled={true}
                                 />
                                 <Controller
                                     name='age'
@@ -160,6 +164,7 @@ export default function Booking(props) {
                                     label='Email'
                                     name='email'
                                     control={control}
+                                    disabled={true}
                                 />
                                 <InputField
                                     label='Address'

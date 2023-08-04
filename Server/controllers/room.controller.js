@@ -7,7 +7,7 @@ module.exports= {
   },
   getRoomByPrice: async (req, res, next)=>{
     const {price1, price2, guest} = req.params;    
-    let rooms= await roomModel.find({cost_per_day: {$gte: Number(price1), $lte: Number(price2)}, max_people: {$gte: Number(guest)}});
+    let rooms= await roomModel.find({cost_per_day: {$gte: Number(price1), $lte: Number(price2)}, max_people: {$gte: Number(guest)}, isFree: 1});
     return res.status(200).json(rooms);
   },
   createRoom: async (req, res, next)=>{

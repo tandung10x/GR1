@@ -22,6 +22,7 @@ import EditRoom from "./screens/admin/components/update-info/EditRoom";
 import EditUser from "./screens/admin/components/update-info/EditUser";
 import { useState } from "react";
 import UserTrips from "./screens/user/pages/UserTrips";
+import { useAuth } from "./app/auths";
 
 function App() {
   const [dates, setDates] = useState([
@@ -32,6 +33,8 @@ function App() {
     }
   ]);
 
+  const { userinfo } = useAuth();
+
   return (
     <div className='App'>
       <BrowserRouter>
@@ -40,8 +43,8 @@ function App() {
           <Route path='/' element={<UserSearch dates={dates} setDates={setDates}/>} />
           <Route path='/user-login' element={<UserLogin />} />
           <Route path='/homestays/:id' element={<HotelDetail dates={dates} setDates={setDates}/>} />
-          <Route path='/booking' element={<Booking dates={dates} setDates={setDates}/>} />
-          <Route path='/user-trips' element={<UserTrips />} />
+          <Route path='/booking' element={<Booking dates={dates} setDates={setDates} userinfo={userinfo}/>} />
+          <Route path='/user-trips' element={<UserTrips userinfo={userinfo}/>} />
 
           {/* admin */}
           <Route path='/admin-login' element={<AdminLogin />} />

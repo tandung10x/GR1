@@ -44,7 +44,7 @@ function App() {
           <Route path='/user-login' element={<UserLogin />} />
           <Route path='/homestays/:id' element={<HotelDetail dates={dates} setDates={setDates}/>} />
           <Route path='/booking' element={<Booking dates={dates} setDates={setDates} userinfo={userinfo}/>} />
-          <Route path='/user-trips' element={<UserTrips userinfo={userinfo}/>} />
+          <Route path='/user-trips' element={<UserTrips />} />
 
           {/* admin */}
           <Route path='/admin-login' element={<AdminLogin />} />

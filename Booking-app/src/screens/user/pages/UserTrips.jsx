@@ -8,7 +8,7 @@ import EditForm from '../../admin/components/edit-form/EditForm';
 import { getAllStatistical } from '../../../redux/statisticalSlice';
 import { useAuth } from '../../../app/auths';
 
-export default function UserTrips(props) {
+export default function UserTrips() {
     const dispatch = useDispatch();
     const [listOrder, setListOrder] = useState([]);
     const [time, setTime] = useState({
@@ -18,18 +18,17 @@ export default function UserTrips(props) {
     const [statisticalItem, setStatisticalItem] = useState();
     const [isLoading, setIsLoading] = useState(false);
     const { userinfo } = useAuth();
-    let isHasListOrder = true;
     
     useEffect(() => {
-        const getListOrder = async() => {
-            const response = await statisticalApi.getStatisticalByEmail(props.userinfo.email_!==undefined ? props?.userinfo.email_ : "tandung10x1998@gmail.com");
-            if (response)
-                setListOrder(response);
-            else
-                isHasListOrder = false;
+        if(userinfo.email_){
+            const getListOrder = async() => {
+                const response = await statisticalApi.getStatisticalByEmail(userinfo.email_);
+                if (response)
+                    setListOrder(response);
+            }
+            getListOrder();
         }
-        getListOrder();
-    }, [props]);
+    }, [userinfo.email_]);
 
     const handleSetTimeCome = (index, value)=>{
         setListOrder((prev) => {
@@ -139,7 +138,7 @@ export default function UserTrips(props) {
                                     {
                                         isLoading ? <CircularProgress size={30} color='primary' /> : (
                                             <>
-                                            {isHasListOrder && listOrder.map((item, index) => {
+                                            {listOrder?.length > 0 ? listOrder?.map((item, index) => {
                                                     return (
                                                         <TableRow key={index} >
                                                             <TableCell align='left'>
@@ -174,7 +173,7 @@ export default function UserTrips(props) {
                                                             </TableCell>
                                                         </TableRow>
                                                     )
-                                                })}                                                
+                                                }) : <div style={{margin: '10px 20px'}}>No trips booked...yet!</div>}                                                
                                             </>
                                         )
                                     }                                    

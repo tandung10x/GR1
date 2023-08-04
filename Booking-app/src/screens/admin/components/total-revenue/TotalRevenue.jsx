@@ -8,16 +8,7 @@ import { useSelector } from 'react-redux'
 const TotalRevenue = () => {
     const { statisticals } = useSelector(state => state.statistical);
 
-    const dayDiff = (firstDate, secondDate) => {
-        const startDay = new Date(firstDate);
-        const endDay = new Date(secondDate);
-        const milis = startDay.getTime() - endDay.getTime();
-        const day = milis / (1000 * 3600 * 24);
-
-        return Math.round(Math.abs(day));
-    }
-
-    const totalRevenue = [...statisticals].map(item => item?.total* +dayDiff(item?.timeCome, item?.timeLeave)).reduce((prev, curr) => prev + curr, 0);
+    const totalRevenue = [...statisticals].map(item => item?.total).reduce((prev, curr) => (prev + curr), 0);
 
     return (
         <div className="total-revenue">

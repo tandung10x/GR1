@@ -1,22 +1,12 @@
 import Header from '../components/header/Header';
 import { Box } from '@mui/system';
-import { Button, CircularProgress, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@mui/material';
+import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@mui/material';
 import statisticalApi from '../../../api/statisticalApi';
 import React, { useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
-import EditForm from '../../admin/components/edit-form/EditForm';
-import { getAllStatistical } from '../../../redux/statisticalSlice';
 import { useAuth } from '../../../app/auths';
 
 export default function UserTrips() {
-    const dispatch = useDispatch();
     const [listOrder, setListOrder] = useState([]);
-    const [time, setTime] = useState({
-        timeCome: '',
-        timeLeave: ''
-    });
-    const [statisticalItem, setStatisticalItem] = useState();
-    const [isLoading, setIsLoading] = useState(false);
     const { userinfo } = useAuth();
     
     useEffect(() => {
@@ -29,48 +19,6 @@ export default function UserTrips() {
             getListOrder();
         }
     }, [userinfo.email_]);
-
-    const handleSetTimeCome = (index, value)=>{
-        setListOrder((prev) => {
-            const prevValue = [...prev]
-            const newValue = { ...prevValue[index], timeCome: value }
-            prevValue[index] = newValue;
-            return prevValue;
-        })
-        setTime(prev => {
-            return {
-                ...prev,
-                timeCome: value
-            }
-        })
-    }
-
-    const handleSetTimeLeave = (index, value) => {
-        setListOrder((prev) => {
-            const prevValue = [...prev]
-            const newValue = { ...prevValue[index], timeLeave: value }
-            prevValue[index] = newValue;
-            return prevValue;
-        })
-        setTime(prev => {
-            return {
-                ...prev,
-                timeLeave: value
-            }
-        })
-    }
-
-    const handleUpdate = async (e) => {
-        const values = {
-            timeCome: time.timeCome,
-            timeLeave: time.timeLeave,
-        }
-        setIsLoading(true);
-        await statisticalApi.update(statisticalItem?._id, values);
-        alert("Update successfully");
-        setIsLoading(false);
-        dispatch(getAllStatistical());
-    }
 
     return (
         <div>
@@ -126,56 +74,31 @@ export default function UserTrips() {
                                         >
                                             Time leave
                                         </TableCell>
-                                        <TableCell
-                                            align='left'
-                                            sx={{ width: '100px' }}
-                                        >
-                                            
-                                        </TableCell>
                                     </TableRow>
                                 </TableHead>
                                 <TableBody>
                                     {
-                                        isLoading ? <CircularProgress size={30} color='primary' /> : (
-                                            <>
-                                            {listOrder?.length > 0 ? listOrder?.map((item, index) => {
-                                                    return (
-                                                        <TableRow key={index} >
-                                                            <TableCell align='left'>
-                                                                {item?.id_room?.type_of_room}
-                                                            </TableCell>
-                                                            <TableCell align='left'>
-                                                                {item?.id_room?.location}
-                                                            </TableCell>                                                           
-                                                            <TableCell align='left'>
-                                                                ${item?.total}
-                                                            </TableCell>
-                                                            <TableCell align='center'>
-                                                                <EditForm
-                                                                    index={index}
-                                                                    name='timeCome'
-                                                                    value={item?.timeCome === null || item?.timeCome === "" ? "Choose date" : item?.timeCome}
-                                                                    setValue={handleSetTimeCome}
-                                                                    onClick={() => setStatisticalItem(item)}
-                                                                />
-                                                            </TableCell>
-                                                            <TableCell align='center'>
-                                                                <EditForm
-                                                                    index={index}
-                                                                    name='timeLeave'
-                                                                    value={item?.timeLeave === null || item?.timeLeave === "" ? "Choose date" : item?.timeLeave}
-                                                                    setValue={handleSetTimeLeave}
-                                                                    onClick={() => setStatisticalItem(item)}
-                                                                />
-                                                            </TableCell>
-                                                            <TableCell>
-                                                                <Button color='warning' variant='contained' size='small' sx={{ fontSize: '12px'}} onClick={handleUpdate}>update</Button>
-                                                            </TableCell>
-                                                        </TableRow>
-                                                    )
-                                                }) : <div style={{margin: '10px 20px'}}>No trips booked...yet!</div>}                                                
-                                            </>
-                                        )
+                                        listOrder?.length > 0 ? listOrder?.map((item, index) => {
+                                            return (
+                                                <TableRow key={index} >
+                                                    <TableCell align='left'>
+                                                        {item?.id_room?.type_of_room}
+                                                    </TableCell>
+                                                    <TableCell align='left'>
+                                                        {item?.id_room?.location}
+                                                    </TableCell>                                                           
+                                                    <TableCell align='left'>
+                                                        ${item?.total}
+                                                    </TableCell>
+                                                    <TableCell align='center'>
+                                                        {item?.timeCome}
+                                                    </TableCell>
+                                                    <TableCell align='center'>
+                                                        {item?.timeLeave}
+                                                    </TableCell>                                                            
+                                                </TableRow>
+                                            )
+                                        }) : <div style={{margin: '10px 20px'}}>No trips booked...yet!</div>
                                     }                                    
                                 </TableBody>
                             </Table>

@@ -1,4 +1,4 @@
-# Group12-Webprogramming-2023
+# GR1-2023
 
 Requirements: NodeJS 16.x
  
